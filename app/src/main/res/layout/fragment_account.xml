@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".fragments.HomeFragment">
+
+        <include
+            android:id="@+id/include"
+            layout="@layout/toolbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Profile Card -->
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/profileSection"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            app:layout_constraintEnd_toStartOf="@id/guideline4"
+            app:layout_constraintStart_toEndOf="@id/guideline3"
+            app:layout_constraintTop_toBottomOf="@id/include">
+
+            <!-- Profile Picture -->
+            <ImageView
+                android:id="@+id/profile_picture"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/profile_default_icon"
+                app:layout_constraintBottom_toBottomOf="@id/profileSection"
+                app:layout_constraintStart_toStartOf="@id/profileSection"
+                app:layout_constraintTop_toTopOf="@id/profileSection" />
+
+            <LinearLayout
+                android:id="@+id/profile_text_container"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="@id/profile_picture"
+                app:layout_constraintStart_toEndOf="@id/profile_picture"
+                app:layout_constraintTop_toTopOf="@id/profile_picture">
+
+                <TextView
+                    android:id="@+id/profile_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Aayush Thakur"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/profile_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="abc@gmail.com"
+                    android:textSize="14sp" />
+
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/profile_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:src="@drawable/pencil_icon"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                app:layout_constraintBottom_toBottomOf="@id/profileSection"
+                app:layout_constraintEnd_toEndOf="@id/profileSection"
+                app:layout_constraintTop_toTopOf="@id/profileSection" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Static Menu Items -->
+        <LinearLayout
+            android:id="@+id/menu_container"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toStartOf="@id/guideline4"
+            app:layout_constraintStart_toEndOf="@id/guideline3"
+            app:layout_constraintTop_toBottomOf="@id/profileSection">
+
+            <include
+                android:id="@+id/order_item"
+                layout="@layout/account_list_items" />
+
+
+            <include
+                android:id="@+id/payment_item"
+                layout="@layout/account_list_items" />
+
+
+            <include
+                android:id="@+id/address_item"
+                layout="@layout/account_list_items" />
+
+
+            <include
+                android:id="@+id/admin_item"
+                layout="@layout/account_list_items" />
+
+
+            <include
+                android:id="@+id/use_cases_item"
+                layout="@layout/account_list_items" />
+
+            <include
+                android:id="@+id/notifications_item"
+                layout="@layout/account_list_items" />
+
+            <include
+                android:id="@+id/logout_item"
+                layout="@layout/account_list_items" />
+
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="20dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="20dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

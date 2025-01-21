@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:background="@drawable/rounded_corner_stroke"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:padding="15dp"
+    android:layout_marginTop="10dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ImageView
+        android:id="@+id/list_item_icon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/order_icon" />
+
+    <TextView
+        android:id="@+id/list_item_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="My Orders"
+        android:textSize="16sp"
+        android:layout_marginStart="16dp"
+        android:textColor="@android:color/black" />
+
+    <ImageView
+        android:id="@+id/list_item_forward_icon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/arrow_forward_icon" />
+
+</LinearLayout>

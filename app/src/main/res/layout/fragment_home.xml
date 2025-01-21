@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+        <include
+            android:id="@+id/include"
+            layout="@layout/toolbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/categoriesRecyclerView"
+            app:layout_constraintTop_toBottomOf="@id/include"
+            app:layout_constraintStart_toStartOf="@id/guideline"
+            app:layout_constraintEnd_toStartOf="@id/guideline1"
+            android:layout_marginTop="20dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+
+        <com.denzcoskun.imageslider.ImageSlider
+            android:id="@+id/carouselBannerRecyclerView"
+            app:layout_constraintTop_toBottomOf="@id/categoriesRecyclerView"
+            app:layout_constraintStart_toStartOf="@id/guideline"
+            app:layout_constraintEnd_toStartOf="@id/guideline1"
+            app:iss_placeholder="@android:color/darker_gray"
+            app:iss_error_image="@android:color/darker_gray"
+            app:iss_corner_radius="5"
+            app:iss_selected_dot="@drawable/default_selected_dot"
+            app:iss_unselected_dot="@drawable/default_unselected_dot"
+            app:iss_period="1000"
+            android:layout_marginTop="20dp"
+            android:layout_width="0dp"
+            android:layout_height="210dp"/>
+
+        <ImageView
+            android:id="@+id/PEBanner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="@id/guideline"
+            app:layout_constraintEnd_toStartOf="@id/guideline1"
+            app:layout_constraintTop_toBottomOf="@id/carouselBannerRecyclerView" />
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="20dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="20dp" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

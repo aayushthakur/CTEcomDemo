@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Ecommerce Demo</string>
+    <string name="ct_demo_ecom">CT Demo Ecom</string>
+    <string name="existing_user">Existing User?</string>
+    <string name="sign_up">SIGN UP</string>
+    <string name="new_user">New User?</string>
+    <string name="login">LOGIN</string>
+    <string name="settings">Settings</string>
+    <string name="payment_settings">Payment Settings</string>
+    <string name="manage_address">Manage Address</string>
+    <string name="admin_panel">Admin Panel</string>
+    <string name="use_case_list">Use Case List</string>
+    <string name="manage_notification_settings">Manage Notification Settings</string>
+    <string name="logout">Logout</string>
+    <string name="profile">Profile</string>
+    <string name="edit_profile">Edit Profile</string>
+
+    <string-array name="categories">
+        <item>Electronics</item>
+        <item>Mobile Phones</item>
+        <item>Fashion</item>
+        <item>Home &amp; Kitchen</item>
+        <item>Health</item>
+        <item>Gift Cards</item>
+        <item>Groceries</item>
+    </string-array>
+</resources>
