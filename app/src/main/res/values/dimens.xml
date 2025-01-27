@@ -5,4 +5,5 @@
     <dimen name="prominent_threshold">72dp</dimen>
     <dimen name="rounded_corners_radius">8dp</dimen>
     <dimen name="gradient_width">56dp</dimen>
+    <dimen name="category_spacing">10dp</dimen>
 </resources>

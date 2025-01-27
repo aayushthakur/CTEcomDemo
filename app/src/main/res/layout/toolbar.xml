@@ -26,12 +26,12 @@
             android:id="@+id/toolbarBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingEnd="20dp"
             android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/guideline11"
             app:layout_constraintStart_toStartOf="@+id/guideline8"
             app:layout_constraintTop_toTopOf="@+id/guideline10"
-            app:srcCompat="@drawable/calendar_icon" />
+            app:tint="@color/md_theme_onPrimary"
+            app:srcCompat="@drawable/arrow_back_24dp" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline10"
@@ -79,5 +79,16 @@
             app:layout_constraintEnd_toStartOf="@+id/toolbarCart"
             app:layout_constraintTop_toTopOf="@+id/guideline10"
             app:srcCompat="@drawable/calendar_icon" />
+
+        <ImageView
+            android:id="@+id/toolbarNotifications"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/guideline11"
+            app:layout_constraintTop_toTopOf="@+id/guideline10"
+            app:layout_constraintEnd_toStartOf="@id/toolbarFav"
+            app:srcCompat="@drawable/notif_icon"
+            app:tint="@color/md_theme_onPrimary" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

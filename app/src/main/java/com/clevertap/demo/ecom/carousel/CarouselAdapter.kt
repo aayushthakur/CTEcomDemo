@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.clevertap.demo.ecom.databinding.ImageLayoutBinding
+import com.clevertap.demo.ecom.productExperiences.ImageModel
 import com.squareup.picasso.Picasso
 
 
@@ -57,8 +58,8 @@ class CarouselAdapter(private var context: Context, private var mList: List<Imag
         RecyclerView.ViewHolder(binding.root) {
         fun bind(model: ImageModel) {
             binding.apply {
-                Picasso.get().load(model.imageUrl).centerCrop().into(binding.imageView)
-                imageView.tooltipText = model.text
+                Picasso.get().load(model.imageUrl).into(binding.imageView)
+                itemText.text = model.text
             }
         }
     }
@@ -74,6 +75,10 @@ class CarouselAdapter(private var context: Context, private var mList: List<Imag
 
     fun updateList(list: List<ImageModel>) {
         this.mList = list
+    }
+
+    fun clearList() {
+        this.mList = ArrayList()
     }
 
 }

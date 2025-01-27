@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -19,7 +20,6 @@ import java.util.Locale
 
 
 class ProfileActivity : AppCompatActivity() {
-    private var dob: String? = null
     private lateinit var binding: ActivityProfileBinding
     private val calendar = Calendar.getInstance()
     private lateinit var date: Date
@@ -55,8 +55,12 @@ class ProfileActivity : AppCompatActivity() {
         val email = prefs?.getString(Constants.email, "")
         val phone = prefs?.getString(Constants.phone, "")
         val preference = prefs?.getString(Constants.categoryPreference, "")
-        dob = prefs?.getString(Constants.dob, "")
-
+        val dob = prefs?.getString(Constants.dob, "")
+        if (!TextUtils.isEmpty(dob)){
+            date = dateToDateObject(dob)
+        }else{
+            date = Date()
+        }
         binding.nameInputEditText.setText(name)
         binding.emailInputEditText.setText(email)
         binding.phoneInputEditText.setText(phone)
@@ -72,12 +76,9 @@ class ProfileActivity : AppCompatActivity() {
         val email = binding.emailInputEditText.text
         val phone = binding.phoneInputEditText.text
         val category = binding.categoryInputEditText.text
-        val date = dateToDateObject(dob)
 
-        if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(phone) && !TextUtils.isEmpty(
-                category
-            ) && date != null
-        ) {
+        if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(email) &&
+            !TextUtils.isEmpty(phone) && !TextUtils.isEmpty(category)) {
             val data: HashMap<String, Any> = hashMapOf(
                 "Phone" to phone.toString(),
                 "Name" to name.toString(),
@@ -97,6 +98,9 @@ class ProfileActivity : AppCompatActivity() {
                 category.toString(),
                 formattedDate
             )
+            finish()
+        }else{
+            Toast.makeText(applicationContext,"Please Fill All Details", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -129,9 +133,9 @@ class ProfileActivity : AppCompatActivity() {
         datePickerDialog.show()
     }
 
-    private fun dateToDateObject(dateString: String?): Date? {
+    private fun dateToDateObject(dateString: String?): Date {
         val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-        return dateString?.let { formatter.parse(it) }
+        return dateString?.let { formatter.parse(it) }!!
     }
 
 }

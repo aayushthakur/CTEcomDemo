@@ -64,4 +64,16 @@ dependencies {
     implementation(libs.picasso)
     implementation("com.google.firebase:firebase-messaging:24.0.0")
 
+    //MANDATORY for App Inbox
+
+    implementation(libs.androidx.recyclerview)
+    implementation(libs.androidx.viewpager)
+    implementation("com.github.bumptech.glide:glide:4.12.0")
+
+//Optional AndroidX Media3 Libraries for Audio/Video Inbox Messages. Audio/Video messages will be dropped without these dependencies
+
+    implementation (libs.androidx.media3.exoplayer)
+    implementation (libs.media3.exoplayer.hls)
+    implementation (libs.media3.ui)
+
 }
