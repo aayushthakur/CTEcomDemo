@@ -99,5 +99,9 @@
             app:layout_constraintGuide_end="20dp" />
 
 
+        <include
+            android:id="@+id/llProgressBar"
+            layout="@layout/progress_dialog"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

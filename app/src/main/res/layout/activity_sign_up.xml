@@ -150,6 +150,11 @@
             android:orientation="vertical"
             app:layout_constraintGuide_end="20dp" />
 
+        <include
+            android:id="@+id/llProgressBar"
+            android:visibility="gone"
+            layout="@layout/progress_dialog"/>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

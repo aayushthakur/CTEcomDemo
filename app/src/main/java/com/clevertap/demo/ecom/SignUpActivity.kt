@@ -6,6 +6,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
+import android.view.View
+import android.view.WindowManager
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -72,7 +74,10 @@ class SignUpActivity : AppCompatActivity() {
         val category = binding.categoryInputEditText.text
 
         if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(phone) && !TextUtils.isEmpty(
-                category) && date.time != 0L) {
+                category) && date.time != 0L && UtilityHelper.INSTANCE.isValidEmail(email.toString())
+            && UtilityHelper.INSTANCE.isValidPhoneNumber(phone.toString())) {
+            showHideProgressView(true)
+
             val data: HashMap<String, Any> = hashMapOf(
                 "Email" to email.toString(),
                 "Phone" to phone.toString(),
@@ -90,21 +95,16 @@ class SignUpActivity : AppCompatActivity() {
             val formattedDate = dateFormat.format(date.time)
             UtilityHelper.INSTANCE.savePIIDataSharedPreference(applicationContext,email.toString(),name.toString(),phone.toString(),category.toString(),formattedDate)
 
-            val mProgressDialog = ProgressDialog(this)
-            mProgressDialog.setTitle("Please Wait")
-            mProgressDialog.setMessage("Signing You Up...")
-            mProgressDialog.show()
-
             Timer().schedule(1500) {
                 runOnUiThread {
-                    mProgressDialog.hide()
+                    showHideProgressView(false)
                     val intent = Intent(applicationContext, MainActivity::class.java)
                     startActivity(intent)
                     finish()
                 }
             }
         } else {
-            Toast.makeText(applicationContext, "Signup Failed", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, "Check All Fields & Try Again", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -143,4 +143,17 @@ class SignUpActivity : AppCompatActivity() {
         // Show the DatePicker dialog
         datePickerDialog.show()
     }
+
+    private fun showHideProgressView(show : Boolean){
+        if (show){
+            binding.llProgressBar.progressLayout.visibility = View.VISIBLE
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        }else{
+            binding.llProgressBar.progressLayout.visibility = View.GONE
+            window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        }
+    }
+
 }

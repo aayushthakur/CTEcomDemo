@@ -10,8 +10,8 @@ import com.clevertap.demo.ecom.productExperiences.ImageModel
 import com.squareup.picasso.Picasso
 
 
-class CarouselAdapter(private var context: Context, private var mList: List<ImageModel>) :
-    RecyclerView.Adapter<CarouselAdapter.ViewHolder>() {
+class CategoriesAdapter(private var context: Context, private var mList: List<ImageModel>) :
+    RecyclerView.Adapter<CategoriesAdapter.ViewHolder>() {
 
     private var onItemClickListener: OnItemClickListener? = null
 

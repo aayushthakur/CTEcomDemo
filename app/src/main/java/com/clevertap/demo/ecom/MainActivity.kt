@@ -3,6 +3,7 @@ package com.clevertap.demo.ecom
 import android.app.NotificationManager
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -12,6 +13,10 @@ import androidx.fragment.app.Fragment
 import com.clevertap.android.sdk.CleverTapAPI
 import com.clevertap.android.sdk.PushPermissionResponseListener
 import com.clevertap.android.sdk.inapp.CTLocalInApp
+import com.clevertap.demo.ecom.api.APIRecordPOJO
+import com.clevertap.demo.ecom.api.APIResultPOJO
+import com.clevertap.demo.ecom.api.ApiInterface
+import com.clevertap.demo.ecom.api.RetrofitInstance
 import com.clevertap.demo.ecom.databinding.ActivityMainBinding
 import com.clevertap.demo.ecom.mainFragments.AccountFragment
 import com.clevertap.demo.ecom.mainFragments.CartFragment
@@ -20,6 +25,12 @@ import com.clevertap.demo.ecom.mainFragments.FragmentCommunicator
 import com.clevertap.demo.ecom.mainFragments.HomeFragment
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
+import com.google.gson.Gson
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 
 class MainActivity : AppCompatActivity(), PushPermissionResponseListener {
@@ -35,6 +46,7 @@ class MainActivity : AppCompatActivity(), PushPermissionResponseListener {
     private var accountFragment: AccountFragment? = null
     private val fragmentManager = supportFragmentManager
     private var activeFragment: Fragment? = homeFragment
+    private lateinit var apiInterface: ApiInterface
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -104,6 +116,69 @@ class MainActivity : AppCompatActivity(), PushPermissionResponseListener {
             .setNegativeBtnText("Cancel")
             .build()
         clevertapInstance?.promptPushPrimer(builder)
+
+//        apiInterface = RetrofitInstance.getInstance().create(ApiInterface::class.java)
+//        val prefEmail = UtilityHelper.INSTANCE.getPIISavedDataSharedPreference(applicationContext)
+//            ?.getString(Constants.email,"");
+//        val prefName = UtilityHelper.INSTANCE.getPIISavedDataSharedPreference(applicationContext)
+//            ?.getString(Constants.name,"");
+//        if (prefEmail != null && TextUtils.isEmpty(prefName)) {
+//            getProfileDataViaEmail(prefEmail)
+//        }
+    }
+
+    private fun getProfileDataViaEmail(email: String){
+        val call = apiInterface.getProfileViaEmail(email,UtilityHelper.INSTANCE.getHeaderMap())
+        call.enqueue(object : Callback<APIResultPOJO> {
+            override fun onResponse(call: Call<APIResultPOJO>, response: Response<APIResultPOJO>) {
+                if (response.isSuccessful && response.body()!=null){
+                    val recordPojo = response.body()!!.record
+                    Log.d(TAG, "onResponse() called with: response = $recordPojo")
+                    if (recordPojo!=null){
+                        val name = recordPojo.name
+                        val email = recordPojo.email
+                        val profileData = recordPojo.profileData
+                        var dob = ""
+                        var preferredCategory =""
+                        if (profileData!=null){
+                            dob = profileData.dob!!
+                            preferredCategory = profileData.preferredcategory!!
+                        }
+                        if (!TextUtils.isEmpty(dob)){
+                            // Extract the value after the underscore
+                            val epochTimeString = dob.substringAfter("_")
+                            // Convert the extracted string to a Long (epoch time in seconds)
+                            val epochTime = epochTimeString.toLong()
+                            dob = UtilityHelper.INSTANCE.getDateTime(epochTime)
+                        }
+
+                        val platformInfo = recordPojo.platformInfo
+                        var phone = ""
+                        if (platformInfo.isNotEmpty()){
+                            for (data in platformInfo){
+                                if (!TextUtils.isEmpty(data.phone)){
+                                    phone = data.phone!!
+                                    break
+                                }
+                            }
+                        }
+                        Log.d(TAG, "onResponse() called with: name = $name email = $email preferredCategory = $preferredCategory dob =  $dob  phone = $phone")
+                        if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(name)
+                            && !TextUtils.isEmpty(phone)
+                            && !TextUtils.isEmpty(preferredCategory) && !TextUtils.isEmpty(dob)){
+
+                            UtilityHelper.INSTANCE.savePIIDataSharedPreference(applicationContext,
+                                email!!,name, "+$phone",preferredCategory,dob)
+                        }
+
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<APIResultPOJO>, t: Throwable) {
+                t.printStackTrace()
+            }
+        })
     }
 
     private fun loadFragment(fragment: Fragment) {/* val transaction = supportFragmentManager.beginTransaction()

@@ -52,7 +52,7 @@
                     android:id="@+id/profile_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Aayush Thakur"
+                    tools:text="Aayush Thakur"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -60,7 +60,7 @@
                     android:id="@+id/profile_email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="abc@gmail.com"
+                    tools:text="abc@gmail.com"
                     android:textSize="14sp" />
 
 

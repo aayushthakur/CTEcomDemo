@@ -13,6 +13,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL
+import androidx.recyclerview.widget.LinearSnapHelper
+import androidx.recyclerview.widget.PagerSnapHelper
 import com.clevertap.android.sdk.CTInboxListener
 import com.clevertap.android.sdk.CleverTapAPI
 import com.clevertap.android.sdk.displayunits.DisplayUnitListener
@@ -24,15 +26,14 @@ import com.clevertap.demo.ecom.Constants
 import com.clevertap.demo.ecom.MainActivity
 import com.clevertap.demo.ecom.MyApplication
 import com.clevertap.demo.ecom.R
-import com.clevertap.demo.ecom.carousel.CarouselAdapter
-import com.clevertap.demo.ecom.productExperiences.ImageModel
+import com.clevertap.demo.ecom.carousel.CarouselBannerAdapter
+import com.clevertap.demo.ecom.carousel.CategoriesAdapter
+import com.clevertap.demo.ecom.carousel.CirclePagerIndicatorDecoration
 import com.clevertap.demo.ecom.carousel.POJOCarouselImageModel
 import com.clevertap.demo.ecom.databinding.FragmentHomeBinding
 import com.clevertap.demo.ecom.productExperiences.HorizontalSpacingItemDecoration
+import com.clevertap.demo.ecom.productExperiences.ImageModel
 import com.clevertap.demo.ecom.productExperiences.TopCategoriesPOJO
-import com.denzcoskun.imageslider.constants.ScaleTypes
-import com.denzcoskun.imageslider.interfaces.ItemClickListener
-import com.denzcoskun.imageslider.models.SlideModel
 import com.google.gson.Gson
 
 
@@ -42,7 +43,7 @@ import com.google.gson.Gson
  * create an instance of this fragment.
  */
 class HomeFragment : Fragment(), FragmentCommunicator, DisplayUnitListener, CTInboxListener {
-    private var cleverTapDefaultInstance: CleverTapAPI? = null
+    private lateinit var cleverTapDefaultInstance: CleverTapAPI
 
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -51,10 +52,10 @@ class HomeFragment : Fragment(), FragmentCommunicator, DisplayUnitListener, CTIn
     private val ARG_PARAM1 = "param1"
     private val ARG_PARAM2 = "param2"
     private lateinit var binding: FragmentHomeBinding
-    private lateinit var carouselAdapter: CarouselAdapter
+    private lateinit var categoriesAdapter: CategoriesAdapter
     private lateinit var carouseImageList: ArrayList<ImageModel>
     private lateinit var categoriesList: ArrayList<ImageModel>
-    var topCategories: Var<String>? = null
+    lateinit var topCategories: Var<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,14 +77,19 @@ class HomeFragment : Fragment(), FragmentCommunicator, DisplayUnitListener, CTIn
         categoriesList = ArrayList()
         // initialize the adapter,
         // and pass the required argument
-        carouselAdapter = CarouselAdapter(requireActivity().applicationContext, categoriesList)
+        categoriesAdapter = CategoriesAdapter(requireActivity().applicationContext, categoriesList)
 
-        rv.adapter = carouselAdapter
+        rv.adapter = categoriesAdapter
         rv.layoutManager = LinearLayoutManager(context, HORIZONTAL, false)
         rv.setHasFixedSize(true)
-        rv.addItemDecoration(HorizontalSpacingItemDecoration(resources.getDimensionPixelSize(R.dimen.category_spacing),0))
+        rv.addItemDecoration(
+            HorizontalSpacingItemDecoration(
+                resources.getDimensionPixelSize(R.dimen.category_spacing),
+                0
+            )
+        )
 
-        carouselAdapter.setOnItemClickListener(object : CarouselAdapter.OnItemClickListener {
+        categoriesAdapter.setOnItemClickListener(object : CategoriesAdapter.OnItemClickListener {
             override fun onClick(imageView: ImageView?, url: String?, redirectUrl: String?) {
                 //Do something like opening the image in new activity or showing it in full screen or something else.
             }
@@ -94,49 +100,47 @@ class HomeFragment : Fragment(), FragmentCommunicator, DisplayUnitListener, CTIn
         }
         cleverTapDefaultInstance = MyApplication.getInstance().clevertap()
         CTAnalyticsHelper.INSTANCE.pushEvent("Home Page Viewed")
+
         cleverTapDefaultInstance.apply {
-            this!!.setDisplayUnitListener(this@HomeFragment)
+            this.setDisplayUnitListener(this@HomeFragment)
         }
 
-        if (cleverTapDefaultInstance != null) {
-            //Set the Notification Inbox Listener
-            cleverTapDefaultInstance?.ctNotificationInboxListener = this@HomeFragment;
-            //Initialize the inbox and wait for callbacks on overridden methods
-            cleverTapDefaultInstance?.initializeInbox();
+        //Set the Notification Inbox Listener
+        cleverTapDefaultInstance.ctNotificationInboxListener = this@HomeFragment
+        //Initialize the inbox and wait for callbacks on overridden methods
+        cleverTapDefaultInstance.initializeInbox()
 
+        topCategories = cleverTapDefaultInstance.defineVariable(
+            "top_categories",
+            "{\"top_categories\":[{\"name\":\"Electronics\",\"image_url\":\"https://lh3.googleusercontent.com/d/1r5lyfdRNgArYVTqLidZ18QcfEiLiJmW7\",\"redirect_url\":\"\",\"order\":1},{\"name\":\"Mobile Phones\",\"image_url\":\"https://lh3.googleusercontent.com/d/12AuvIQ4361wTwxbLUAhx-eOD8qmWImtB\",\"redirect_url\":\"\",\"order\":2},{\"name\":\"Fashion\",\"image_url\":\"https://lh3.googleusercontent.com/d/13YcO3qvkjM3o5I6nH2dStpIQkvw4GJnJ\",\"redirect_url\":\"\",\"order\":3},{\"name\":\"Home & Kitchen\",\"image_url\":\"https://lh3.googleusercontent.com/d/1Xmkz060pg1Z_CU_bp6-7CaRWmHXmnN6Y\",\"redirect_url\":\"\",\"order\":4},{\"name\":\"Health\",\"image_url\":\"https://lh3.googleusercontent.com/d/1_5eJPxNbV_AmfxsBP0hpTjcytgi8xLQf\",\"redirect_url\":\"\",\"order\":5},{\"name\":\"Gift Cards\",\"image_url\":\"https://lh3.googleusercontent.com/d/1AbL31Jfhm-6veBrEzvu_cUX5JqgTTWLk\",\"redirect_url\":\"\",\"order\":6},{\"name\":\"Groceries\",\"image_url\":\"https://lh3.googleusercontent.com/d/1QaeypE-4qfq_x_E23lAO4ppZmmu6JQA6\",\"redirect_url\":\"\",\"order\":7}]}"
+        )
 
-            topCategories = cleverTapDefaultInstance!!.defineVariable(
-                "top_categories",
-                "{\"top_categories\":[{\"name\":\"Electronics\",\"image_url\":\"https://lh3.googleusercontent.com/d/1r5lyfdRNgArYVTqLidZ18QcfEiLiJmW7\",\"redirect_url\":\"\",\"order\":1},{\"name\":\"Mobile Phones\",\"image_url\":\"https://lh3.googleusercontent.com/d/12AuvIQ4361wTwxbLUAhx-eOD8qmWImtB\",\"redirect_url\":\"\",\"order\":2},{\"name\":\"Fashion\",\"image_url\":\"https://lh3.googleusercontent.com/d/13YcO3qvkjM3o5I6nH2dStpIQkvw4GJnJ\",\"redirect_url\":\"\",\"order\":3},{\"name\":\"Home & Kitchen\",\"image_url\":\"https://lh3.googleusercontent.com/d/1Xmkz060pg1Z_CU_bp6-7CaRWmHXmnN6Y\",\"redirect_url\":\"\",\"order\":4},{\"name\":\"Health\",\"image_url\":\"https://lh3.googleusercontent.com/d/1_5eJPxNbV_AmfxsBP0hpTjcytgi8xLQf\",\"redirect_url\":\"\",\"order\":5},{\"name\":\"Gift Cards\",\"image_url\":\"https://lh3.googleusercontent.com/d/1AbL31Jfhm-6veBrEzvu_cUX5JqgTTWLk\",\"redirect_url\":\"\",\"order\":6},{\"name\":\"Groceries\",\"image_url\":\"https://lh3.googleusercontent.com/d/1QaeypE-4qfq_x_E23lAO4ppZmmu6JQA6\",\"redirect_url\":\"\",\"order\":7}]}"
-            )
+        cleverTapDefaultInstance.fetchVariables { isSuccess ->
+            // isSuccess is true when server request is successful, false otherwise
+            if (isSuccess) {
+                topCategories =
+                    cleverTapDefaultInstance.getVariable("top_categories")
+            }
+        }
 
-            cleverTapDefaultInstance!!.fetchVariables { isSuccess ->
-                // isSuccess is true when server request is successful, false otherwise
-                if (isSuccess) {
-                    topCategories =
-                        cleverTapDefaultInstance!!.getVariable("top_categories")
+        topCategories.addValueChangedCallback(object : VariableCallback<String>() {
+            override fun onValueChanged(varInstance: Var<String>) {
+                Handler(context!!.mainLooper).post {
+                    topCategories = varInstance
+                    // run code
+                    renderData()
                 }
             }
-
-            topCategories?.addValueChangedCallback(object : VariableCallback<String>() {
-                override fun onValueChanged(varInstance: Var<String>) {
-                    Handler(context!!.mainLooper).post {
-                        topCategories = varInstance
-                        // run code
-                        renderData()
-                    }
-                }
-            })
-        }
+        })
         return binding.root
     }
 
 
     fun renderData() {
         categoriesList.clear()
-        carouselAdapter.clearList()
+        categoriesAdapter.clearList()
         val gson = Gson().fromJson(
-            topCategories!!.stringValue, TopCategoriesPOJO::class.java
+            topCategories.stringValue, TopCategoriesPOJO::class.java
         )
         for (data in gson.topCategories) {
             categoriesList.add(
@@ -150,8 +154,8 @@ class HomeFragment : Fragment(), FragmentCommunicator, DisplayUnitListener, CTIn
         }
 
         var sortedList = categoriesList.sortedWith(compareBy { it.order })
-        carouselAdapter.updateList(sortedList)
-        carouselAdapter.notifyDataSetChanged()
+        categoriesAdapter.updateList(sortedList)
+        categoriesAdapter.notifyDataSetChanged()
     }
 
     companion object {
@@ -244,13 +248,8 @@ class HomeFragment : Fragment(), FragmentCommunicator, DisplayUnitListener, CTIn
                     val gson = Gson().fromJson(
                         customMap[Constants.PAYLOAD].toString(), POJOCarouselImageModel::class.java
                     )
-                    val imageList = ArrayList<SlideModel>()
+                    carouseImageList.clear()
                     for (data in gson.carouselImage) {
-                        imageList.add(
-                            SlideModel(
-                                data.imageUrl
-                            )
-                        )
                         carouseImageList.add(
                             ImageModel(
                                 data.imageUrl,
@@ -260,19 +259,44 @@ class HomeFragment : Fragment(), FragmentCommunicator, DisplayUnitListener, CTIn
                             )
                         )
                     }
-                    binding.carouselBannerRecyclerView.setImageList(imageList, ScaleTypes.FIT)
-                    binding.carouselBannerRecyclerView.startSliding()
-                    binding.carouselBannerRecyclerView.setItemClickListener(object :
-                        ItemClickListener {
-                        override fun onItemSelected(position: Int) {
-                            // You can listen here.
+                    val carouselAdapter = CarouselBannerAdapter(carouseImageList)
+                    binding.carouselBannerRecyclerView.run {
+                        adapter = carouselAdapter
+                        layoutManager =  LinearLayoutManager(context, HORIZONTAL, false)
+                        hasFixedSize()
+                        addItemDecoration(HorizontalSpacingItemDecoration(
+                            resources.getDimensionPixelSize(R.dimen.category_spacing),
+                            0
+                        ))
+                        addItemDecoration(CirclePagerIndicatorDecoration())
+                        LinearSnapHelper()
+                    }
+                    carouselAdapter.setOnItemClickListener(object :
+                        CarouselBannerAdapter.OnItemClickListener {
+                        override fun onClick(
+                            imageView: ImageView?,
+                            url: String?,
+                            redirectUrl: String?,
+                            order:Int?
+                        ) {
                             Toast.makeText(
-                                context,
-                                "You have clicked on Image No : ${carouseImageList[position].order}",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                                 context,
+                                 "You have clicked on Image No : $order}",
+                                 Toast.LENGTH_SHORT
+                             ).show()
                         }
+
                     })
+
+//                     binding.carouselBannerRecyclerView.setItemSelectListener(object : OnSelected {
+//                         override fun onItemSelected(position: Int) {
+//                             Toast.makeText(
+//                                 context,
+//                                 "You have clicked on Image No : ${carouseImageList[position].order}",
+//                                 Toast.LENGTH_SHORT
+//                             ).show()
+//                         }
+//                     })
 
                 } else {
                     //backend
@@ -300,12 +324,12 @@ class HomeFragment : Fragment(), FragmentCommunicator, DisplayUnitListener, CTIn
 //                cleverTapDefaultInstance?.showAppInbox(this) //Opens activity With Tabs
 //            }
             //OR
-            cleverTapDefaultInstance?.showAppInbox()
+            cleverTapDefaultInstance.showAppInbox()
         })
     }
 
     override fun inboxMessagesDidUpdate() {
-        TODO("Not yet implemented")
+
     }
 
 }

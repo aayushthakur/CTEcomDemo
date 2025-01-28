@@ -60,7 +60,6 @@ dependencies {
     implementation (libs.clevertap.android.sdk)
 //    implementation (libs.glide)
     implementation(libs.gson)
-    implementation ("com.github.denzcoskun:ImageSlideshow:0.1.0")
     implementation(libs.picasso)
     implementation("com.google.firebase:firebase-messaging:24.0.0")
 
@@ -75,5 +74,9 @@ dependencies {
     implementation (libs.androidx.media3.exoplayer)
     implementation (libs.media3.exoplayer.hls)
     implementation (libs.media3.ui)
+    implementation (libs.retrofit)
+    implementation (libs.converter.gson)
+    implementation (libs.logging.interceptor)
+
 
 }

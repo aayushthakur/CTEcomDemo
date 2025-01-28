@@ -20,7 +20,7 @@ class MyApplication : Application() {
             return INSTANCE!!
         }
     }
-    private var clevertap : CleverTapAPI? = null
+    private lateinit var clevertap : CleverTapAPI
 
     override fun onCreate() {
         ActivityLifecycleCallback.register(this);
@@ -28,12 +28,12 @@ class MyApplication : Application() {
         FirebaseApp.initializeApp(this)
         INSTANCE = this
         clevertap = CleverTapAPI.getDefaultInstance(applicationContext)!!
-        clevertap!!.enableDeviceNetworkInfoReporting(true)
+        clevertap.enableDeviceNetworkInfoReporting(true)
         CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.VERBOSE)
         CleverTapAPI.setNotificationHandler(PushTemplateNotificationHandler() as NotificationHandler);
     }
 
-    fun clevertap() : CleverTapAPI? {
+    fun clevertap() : CleverTapAPI {
         return clevertap
     }
 }

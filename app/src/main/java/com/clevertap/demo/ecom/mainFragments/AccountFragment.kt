@@ -2,16 +2,18 @@ package com.clevertap.demo.ecom.mainFragments
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import com.clevertap.demo.ecom.CTAnalyticsHelper
-import com.clevertap.demo.ecom.MainActivity
+import com.clevertap.demo.ecom.Constants
 import com.clevertap.demo.ecom.ProfileActivity
 import com.clevertap.demo.ecom.R
+import com.clevertap.demo.ecom.SignUpActivity
+import com.clevertap.demo.ecom.UtilityHelper
 import com.clevertap.demo.ecom.databinding.FragmentAccountBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -61,10 +63,28 @@ class AccountFragment : Fragment() {
         binding.notificationsItem.listItemIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.notif_icon,null))
         binding.logoutItem.listItemIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.logout_icon,null))
 
+       val prefs =  UtilityHelper.INSTANCE.getPIISavedDataSharedPreference(requireContext())
+        if (prefs!=null){
+            binding.profileName.text = prefs.getString(Constants.name,"User")
+            binding.profileEmail.text = prefs.getString(Constants.email,"Email Address")
+        }
         binding.profileEdit.setOnClickListener {
             val intent = Intent(context, ProfileActivity::class.java)
             startActivity(intent)
         }
+        binding.logoutItem.logoutItemLayout.setOnClickListener(View.OnClickListener {
+            val preferences = UtilityHelper.INSTANCE.getPIISavedDataSharedPreference(requireContext())
+            val editor = preferences?.edit()
+            editor?.clear()
+            editor?.apply()
+
+            val intent = Intent(context, SignUpActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            startActivity(intent)
+            activity?.finish()
+
+        })
 
         CTAnalyticsHelper.INSTANCE.pushEvent("Account Page Viewed")
 
