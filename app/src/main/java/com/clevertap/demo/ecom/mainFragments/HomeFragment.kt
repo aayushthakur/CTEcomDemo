@@ -125,10 +125,14 @@ class HomeFragment : Fragment(), FragmentCommunicator, DisplayUnitListener, CTIn
 
         topCategories.addValueChangedCallback(object : VariableCallback<String>() {
             override fun onValueChanged(varInstance: Var<String>) {
-                Handler(context!!.mainLooper).post {
-                    topCategories = varInstance
-                    // run code
-                    renderData()
+                varInstance.let { validInstance ->
+                    context?.let {
+                        Handler(it.mainLooper).post {
+                            topCategories = validInstance
+                            // run code
+                            renderData()
+                        }
+                    }
                 }
             }
         })
