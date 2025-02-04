@@ -1,10 +1,12 @@
 package com.clevertap.demo.ecom
 
 import android.app.NotificationManager
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
+import android.os.Handler
 import android.text.TextUtils
 import android.util.Log
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -13,10 +15,10 @@ import androidx.fragment.app.Fragment
 import com.clevertap.android.sdk.CleverTapAPI
 import com.clevertap.android.sdk.PushPermissionResponseListener
 import com.clevertap.android.sdk.inapp.CTLocalInApp
-import com.clevertap.demo.ecom.api.APIRecordPOJO
+import com.clevertap.android.sdk.variables.Var
+import com.clevertap.android.sdk.variables.callbacks.VariableCallback
 import com.clevertap.demo.ecom.api.APIResultPOJO
 import com.clevertap.demo.ecom.api.ApiInterface
-import com.clevertap.demo.ecom.api.RetrofitInstance
 import com.clevertap.demo.ecom.databinding.ActivityMainBinding
 import com.clevertap.demo.ecom.mainFragments.AccountFragment
 import com.clevertap.demo.ecom.mainFragments.CartFragment
@@ -25,17 +27,15 @@ import com.clevertap.demo.ecom.mainFragments.FragmentCommunicator
 import com.clevertap.demo.ecom.mainFragments.HomeFragment
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
-import com.google.gson.Gson
+import com.squareup.picasso.Picasso
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.text.SimpleDateFormat
-import java.util.Locale
 
 
 class MainActivity : AppCompatActivity(), PushPermissionResponseListener {
 
-    private var clevertapInstance: CleverTapAPI? = null
+    private lateinit var cleverTapDefaultInstance: CleverTapAPI
     private lateinit var binding: ActivityMainBinding
     private val TAG: String = MainActivity::class.java.simpleName
     var mListener: FragmentCommunicator? = null
@@ -47,10 +47,12 @@ class MainActivity : AppCompatActivity(), PushPermissionResponseListener {
     private val fragmentManager = supportFragmentManager
     private var activeFragment: Fragment? = homeFragment
     private lateinit var apiInterface: ApiInterface
+    lateinit var festivalTheme: Var<String>
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+//        enableEdgeToEdge()
 //        binding.include.toolbarText.text = "Home"
 
         homeFragment = HomeFragment.newInstance()
@@ -66,6 +68,55 @@ class MainActivity : AppCompatActivity(), PushPermissionResponseListener {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)
             insets
         }
+        cleverTapDefaultInstance = MyApplication.getInstance().clevertap()
+
+        festivalTheme = cleverTapDefaultInstance.defineVariable(
+            "festival_theme","valentines")
+
+        cleverTapDefaultInstance.fetchVariables { isSuccess ->
+            // isSuccess is true when server request is successful, false otherwise
+            if (isSuccess) {
+                festivalTheme =
+                    cleverTapDefaultInstance.getVariable("festival_theme")
+            }
+        }
+
+        festivalTheme.addValueChangedCallback(object : VariableCallback<String>() {
+            override fun onValueChanged(varInstance: Var<String>) {
+                varInstance.let { validInstance ->
+                    applicationContext?.let {
+                        Handler(it.mainLooper).post {
+                            festivalTheme = validInstance
+                            var imageUrl ="https://iili.io/2tfZUNf.jpg"
+                            if (festivalTheme.stringValue.equals("holi")){
+                                 imageUrl ="https://iili.io/2tqejf4.jpg"
+                            }
+                            Log.d(TAG, "onValueChanged() called with $validInstance $festivalTheme $imageUrl")
+                            // run code
+                            Picasso.get()
+                                .load(imageUrl)
+                                .into(object : com.squareup.picasso.Target {
+                                    override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
+                                        binding.main.background = BitmapDrawable(resources, bitmap)
+                                    }
+
+                                    override fun onBitmapFailed(e: java.lang.Exception?, errorDrawable: android.graphics.drawable.Drawable?) {
+                                        // Handle error case
+                                        Log.d(
+                                            TAG,
+                                            "onBitmapFailed() called with: e = $e, errorDrawable = $errorDrawable"
+                                        )
+                                    }
+
+                                    override fun onPrepareLoad(placeHolderDrawable: android.graphics.drawable.Drawable?) {
+                                        // Optional: You can set a placeholder here
+                                    }
+                                })
+                        }
+                    }
+                }
+            }
+        })
 
         binding.bottomNavigationView.setOnItemSelectedListener {
             when (it.itemId) {
@@ -104,8 +155,7 @@ class MainActivity : AppCompatActivity(), PushPermissionResponseListener {
         //setting default fragment as Home
         loadFragment(activeFragment!!)
 
-        clevertapInstance = MyApplication.getInstance().clevertap()
-        clevertapInstance?.registerPushPermissionNotificationResponseListener(this)
+        cleverTapDefaultInstance.registerPushPermissionNotificationResponseListener(this)
 
         val builder = CTLocalInApp.builder()
             .setInAppType(CTLocalInApp.InAppType.ALERT)
@@ -115,7 +165,7 @@ class MainActivity : AppCompatActivity(), PushPermissionResponseListener {
             .setPositiveBtnText("Allow")
             .setNegativeBtnText("Cancel")
             .build()
-        clevertapInstance?.promptPushPrimer(builder)
+        cleverTapDefaultInstance.promptPushPrimer(builder)
 
 //        apiInterface = RetrofitInstance.getInstance().create(ApiInterface::class.java)
 //        val prefEmail = UtilityHelper.INSTANCE.getPIISavedDataSharedPreference(applicationContext)
@@ -208,7 +258,7 @@ class MainActivity : AppCompatActivity(), PushPermissionResponseListener {
                 // fetching the token
                 val token = task.result
                 if (TextUtils.isEmpty(token)) {
-                    clevertapInstance?.pushFcmRegistrationId(token, true)
+                    cleverTapDefaultInstance.pushFcmRegistrationId(token, true)
                 }
 
             })
@@ -222,7 +272,7 @@ class MainActivity : AppCompatActivity(), PushPermissionResponseListener {
 
     override fun onDestroy() {
         super.onDestroy()
-        clevertapInstance?.unregisterPushPermissionNotificationResponseListener(this)
+        cleverTapDefaultInstance.unregisterPushPermissionNotificationResponseListener(this)
     }
 
 

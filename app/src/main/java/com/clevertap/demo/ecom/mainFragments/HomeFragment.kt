@@ -14,7 +14,6 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL
 import androidx.recyclerview.widget.LinearSnapHelper
-import androidx.recyclerview.widget.PagerSnapHelper
 import com.clevertap.android.sdk.CTInboxListener
 import com.clevertap.android.sdk.CleverTapAPI
 import com.clevertap.android.sdk.displayunits.DisplayUnitListener
@@ -99,7 +98,10 @@ class HomeFragment : Fragment(), FragmentCommunicator, DisplayUnitListener, CTIn
             (activity as MainActivity?)?.setFragmentListener(this)
         }
         cleverTapDefaultInstance = MyApplication.getInstance().clevertap()
-        CTAnalyticsHelper.INSTANCE.pushEvent("Home Page Viewed")
+
+        Handler().postDelayed({
+            CTAnalyticsHelper.INSTANCE.pushEvent("Home Page Viewed")
+        }, 3000)
 
         cleverTapDefaultInstance.apply {
             this.setDisplayUnitListener(this@HomeFragment)
@@ -266,12 +268,14 @@ class HomeFragment : Fragment(), FragmentCommunicator, DisplayUnitListener, CTIn
                     val carouselAdapter = CarouselBannerAdapter(carouseImageList)
                     binding.carouselBannerRecyclerView.run {
                         adapter = carouselAdapter
-                        layoutManager =  LinearLayoutManager(context, HORIZONTAL, false)
+                        layoutManager = LinearLayoutManager(context, HORIZONTAL, false)
                         hasFixedSize()
-                        addItemDecoration(HorizontalSpacingItemDecoration(
-                            resources.getDimensionPixelSize(R.dimen.category_spacing),
-                            0
-                        ))
+                        addItemDecoration(
+                            HorizontalSpacingItemDecoration(
+                                resources.getDimensionPixelSize(R.dimen.category_spacing),
+                                0
+                            )
+                        )
                         addItemDecoration(CirclePagerIndicatorDecoration())
                         LinearSnapHelper()
                     }
@@ -281,13 +285,13 @@ class HomeFragment : Fragment(), FragmentCommunicator, DisplayUnitListener, CTIn
                             imageView: ImageView?,
                             url: String?,
                             redirectUrl: String?,
-                            order:Int?
+                            order: Int?
                         ) {
                             Toast.makeText(
-                                 context,
-                                 "You have clicked on Image No : $order}",
-                                 Toast.LENGTH_SHORT
-                             ).show()
+                                context,
+                                "You have clicked on Image No : $order}",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
 
                     })

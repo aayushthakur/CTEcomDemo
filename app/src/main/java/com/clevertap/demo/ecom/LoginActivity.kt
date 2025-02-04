@@ -38,7 +38,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+//        enableEdgeToEdge()
         val prefEmail = UtilityHelper.INSTANCE.getPIISavedDataSharedPreference(applicationContext)
             ?.getString(Constants.email, "")
 

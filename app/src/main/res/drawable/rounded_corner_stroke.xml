@@ -11,6 +11,7 @@
         android:color="@color/md_theme_primary" />
 
     <!-- No background -->
-    <solid android:color="@android:color/transparent" />
+<!--    <solid android:color="@android:color/transparent" />-->
+    <solid android:color="@color/md_theme_onPrimary" />
 
 </shape>
