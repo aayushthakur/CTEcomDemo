@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.clevertap.demo.ecom.CTAnalyticsHelper
 import com.clevertap.demo.ecom.Constants
+import com.clevertap.demo.ecom.IndustrySelectActivity
 import com.clevertap.demo.ecom.ProfileActivity
 import com.clevertap.demo.ecom.R
 import com.clevertap.demo.ecom.SignUpActivity
@@ -53,6 +54,7 @@ class AccountFragment : Fragment() {
         binding.addressItem.listItemText.text = getString(R.string.manage_address)
         binding.adminItem.listItemText.text = getString(R.string.admin_panel)
         binding.useCasesItem.listItemText.text = getString(R.string.use_case_list)
+        binding.industrySelectItem.listItemText.text = getString(R.string.industry_selector)
         binding.notificationsItem.listItemText.text = getString(R.string.manage_notification_settings)
         binding.logoutItem.listItemText.text = getString(R.string.logout)
 
@@ -60,6 +62,7 @@ class AccountFragment : Fragment() {
         binding.addressItem.listItemIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.home_black_24dp,null))
         binding.adminItem.listItemIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.admin_section_icon,null))
         binding.useCasesItem.listItemIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.use_cases_icon,null))
+        binding.industrySelectItem.listItemIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.use_cases_icon,null))
         binding.notificationsItem.listItemIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.notif_icon,null))
         binding.logoutItem.listItemIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.logout_icon,null))
 
@@ -85,6 +88,11 @@ class AccountFragment : Fragment() {
             activity?.finish()
 
         })
+
+        binding.industrySelectItem.logoutItemLayout.setOnClickListener {
+            val intent = Intent(context, IndustrySelectActivity::class.java)
+            startActivity(intent)
+        }
 
         CTAnalyticsHelper.INSTANCE.pushEvent("Account Page Viewed")
 

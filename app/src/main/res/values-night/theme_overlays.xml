@@ -1,9 +1,9 @@
 <resources>
 <!--    <style name="ThemeOverlay.AppTheme.MediumContrast" parent="Theme.Material3.Dark.NoActionBar">-->
-<!--        <item name="colorPrimary">@color/md_theme_primary_mediumContrast</item>-->
-<!--        <item name="colorOnPrimary">@color/md_theme_onPrimary_mediumContrast</item>-->
-<!--        <item name="colorPrimaryContainer">@color/md_theme_primaryContainer_mediumContrast</item>-->
-<!--        <item name="colorOnPrimaryContainer">@color/md_theme_onPrimaryContainer_mediumContrast</item>-->
+<!--        <item name="flipkart_blue">@color/flipkart_blue_mediumContrast</item>-->
+<!--        <item name="colorOnPrimary">@color/flipkart_blue_mediumContrast</item>-->
+<!--        <item name="flipkart_blueContainer">@color/flipkart_blueContainer_mediumContrast</item>-->
+<!--        <item name="colorOnPrimaryContainer">@color/flipkart_blueContainer_mediumContrast</item>-->
 <!--        <item name="colorSecondary">@color/md_theme_secondary_mediumContrast</item>-->
 <!--        <item name="colorOnSecondary">@color/md_theme_onSecondary_mediumContrast</item>-->
 <!--        <item name="colorSecondaryContainer">@color/md_theme_secondaryContainer_mediumContrast</item>-->
@@ -26,11 +26,11 @@
 <!--        <item name="colorOutlineVariant">@color/md_theme_outlineVariant_mediumContrast</item>-->
 <!--        <item name="colorSurfaceInverse">@color/md_theme_inverseSurface_mediumContrast</item>-->
 <!--        <item name="colorOnSurfaceInverse">@color/md_theme_inverseOnSurface_mediumContrast</item>-->
-<!--        <item name="colorPrimaryInverse">@color/md_theme_inversePrimary_mediumContrast</item>-->
-<!--        <item name="colorPrimaryFixed">@color/md_theme_primaryFixed_mediumContrast</item>-->
-<!--        <item name="colorOnPrimaryFixed">@color/md_theme_onPrimaryFixed_mediumContrast</item>-->
-<!--        <item name="colorPrimaryFixedDim">@color/md_theme_primaryFixedDim_mediumContrast</item>-->
-<!--        <item name="colorOnPrimaryFixedVariant">@color/md_theme_onPrimaryFixedVariant_mediumContrast</item>-->
+<!--        <item name="flipkart_blueInverse">@color/md_theme_inversePrimary_mediumContrast</item>-->
+<!--        <item name="flipkart_blueFixed">@color/flipkart_blueFixed_mediumContrast</item>-->
+<!--        <item name="colorOnPrimaryFixed">@color/flipkart_blueFixed_mediumContrast</item>-->
+<!--        <item name="flipkart_blueFixedDim">@color/flipkart_blueFixedDim_mediumContrast</item>-->
+<!--        <item name="colorOnPrimaryFixedVariant">@color/flipkart_blueFixedVariant_mediumContrast</item>-->
 <!--        <item name="colorSecondaryFixed">@color/md_theme_secondaryFixed_mediumContrast</item>-->
 <!--        <item name="colorOnSecondaryFixed">@color/md_theme_onSecondaryFixed_mediumContrast</item>-->
 <!--        <item name="colorSecondaryFixedDim">@color/md_theme_secondaryFixedDim_mediumContrast</item>-->
@@ -48,10 +48,10 @@
 <!--        <item name="colorSurfaceContainerHighest">@color/md_theme_surfaceContainerHighest_mediumContrast</item>-->
 <!--    </style>-->
 <!--    <style name="ThemeOverlay.AppTheme.HighContrast" parent="Theme.Material3.Dark.NoActionBar">-->
-<!--        <item name="colorPrimary">@color/md_theme_primary_highContrast</item>-->
-<!--        <item name="colorOnPrimary">@color/md_theme_onPrimary_highContrast</item>-->
-<!--        <item name="colorPrimaryContainer">@color/md_theme_primaryContainer_highContrast</item>-->
-<!--        <item name="colorOnPrimaryContainer">@color/md_theme_onPrimaryContainer_highContrast</item>-->
+<!--        <item name="flipkart_blue">@color/flipkart_blue_highContrast</item>-->
+<!--        <item name="colorOnPrimary">@color/flipkart_blue_highContrast</item>-->
+<!--        <item name="flipkart_blueContainer">@color/flipkart_blueContainer_highContrast</item>-->
+<!--        <item name="colorOnPrimaryContainer">@color/flipkart_blueContainer_highContrast</item>-->
 <!--        <item name="colorSecondary">@color/md_theme_secondary_highContrast</item>-->
 <!--        <item name="colorOnSecondary">@color/md_theme_onSecondary_highContrast</item>-->
 <!--        <item name="colorSecondaryContainer">@color/md_theme_secondaryContainer_highContrast</item>-->
@@ -74,11 +74,11 @@
 <!--        <item name="colorOutlineVariant">@color/md_theme_outlineVariant_highContrast</item>-->
 <!--        <item name="colorSurfaceInverse">@color/md_theme_inverseSurface_highContrast</item>-->
 <!--        <item name="colorOnSurfaceInverse">@color/md_theme_inverseOnSurface_highContrast</item>-->
-<!--        <item name="colorPrimaryInverse">@color/md_theme_inversePrimary_highContrast</item>-->
-<!--        <item name="colorPrimaryFixed">@color/md_theme_primaryFixed_highContrast</item>-->
-<!--        <item name="colorOnPrimaryFixed">@color/md_theme_onPrimaryFixed_highContrast</item>-->
-<!--        <item name="colorPrimaryFixedDim">@color/md_theme_primaryFixedDim_highContrast</item>-->
-<!--        <item name="colorOnPrimaryFixedVariant">@color/md_theme_onPrimaryFixedVariant_highContrast</item>-->
+<!--        <item name="flipkart_blueInverse">@color/md_theme_inversePrimary_highContrast</item>-->
+<!--        <item name="flipkart_blueFixed">@color/flipkart_blueFixed_highContrast</item>-->
+<!--        <item name="colorOnPrimaryFixed">@color/flipkart_blueFixed_highContrast</item>-->
+<!--        <item name="flipkart_blueFixedDim">@color/flipkart_blueFixedDim_highContrast</item>-->
+<!--        <item name="colorOnPrimaryFixedVariant">@color/flipkart_blueFixedVariant_highContrast</item>-->
 <!--        <item name="colorSecondaryFixed">@color/md_theme_secondaryFixed_highContrast</item>-->
 <!--        <item name="colorOnSecondaryFixed">@color/md_theme_onSecondaryFixed_highContrast</item>-->
 <!--        <item name="colorSecondaryFixedDim">@color/md_theme_secondaryFixedDim_highContrast</item>-->

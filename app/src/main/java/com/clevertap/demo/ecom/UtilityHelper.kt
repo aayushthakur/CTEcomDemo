@@ -39,6 +39,17 @@ class UtilityHelper private constructor() {
         return  context.getSharedPreferences(Constants.PII,Context.MODE_PRIVATE)
     }
 
+    fun getIndustrySelectionSharedPreference(context: Context): SharedPreferences? {
+        return  context.getSharedPreferences(Constants.INDUSTRY,Context.MODE_PRIVATE)
+    }
+
+    fun saveIndustrySelectionSharedPreference(context: Context, industry:String){
+        val sharedPreference =  context.getSharedPreferences(Constants.INDUSTRY,Context.MODE_PRIVATE)
+        val editor = sharedPreference.edit()
+        editor.putString(Constants.INDUSTRY,industry)
+        editor.apply()
+    }
+
     fun getHeaderMap(): Map<String, String> {
         val headerMap = mutableMapOf<String, String>()
         headerMap["X-CleverTap-Account-Id"] = "6KZ-ZKK-6K7Z"

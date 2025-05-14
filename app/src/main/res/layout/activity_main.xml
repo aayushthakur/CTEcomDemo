@@ -31,8 +31,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:itemActiveIndicatorStyle="@style/Theme.BottomNavigationView.ActiveIndicator"
-            app:itemTextColor="@color/md_theme_primary"
-            app:itemIconTint="@drawable/icon_selector"
+            app:itemTextColor="@drawable/bottom_nav_text_color"
+            app:itemIconTint="@drawable/bottom_nav_icon_color"
             app:menu="@menu/bottom_navigation_menu" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

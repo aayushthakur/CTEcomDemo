@@ -8,10 +8,10 @@
     <!-- Black stroke -->
     <stroke
         android:width="2dp"
-        android:color="@color/md_theme_primary" />
+        android:color="@color/flipkart_blue" />
 
     <!-- No background -->
 <!--    <solid android:color="@android:color/transparent" />-->
-    <solid android:color="@color/md_theme_onPrimary" />
+    <solid android:color="@color/white" />
 
 </shape>

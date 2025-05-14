@@ -30,7 +30,7 @@
             app:layout_constraintBottom_toTopOf="@+id/guideline11"
             app:layout_constraintStart_toStartOf="@+id/guideline8"
             app:layout_constraintTop_toTopOf="@+id/guideline10"
-            app:tint="@color/md_theme_onPrimary"
+            app:tint="@color/blue_light1"
             app:srcCompat="@drawable/arrow_back_24dp" />
 
         <androidx.constraintlayout.widget.Guideline
@@ -82,13 +82,13 @@
 
         <ImageView
             android:id="@+id/toolbarNotifications"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="visible"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/guideline11"
             app:layout_constraintTop_toTopOf="@+id/guideline10"
             app:layout_constraintEnd_toStartOf="@id/toolbarFav"
             app:srcCompat="@drawable/notif_icon"
-            app:tint="@color/md_theme_onPrimary" />
+            app:tint="@color/blue_light1" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

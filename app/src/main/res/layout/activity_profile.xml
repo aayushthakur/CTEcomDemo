@@ -56,7 +56,7 @@
             android:layout_height="24dp"
             android:src="@drawable/pencil_icon"
             android:padding="5dp"
-            app:tint="@color/md_theme_onPrimary"
+            app:tint="@color/blue_light1"
             android:foregroundGravity="center|bottom"
             android:layout_gravity="end|bottom"
             android:background="@drawable/circle_shape"

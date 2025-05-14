@@ -16,11 +16,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.App.Starting"
         tools:targetApi="31">
+
+        <activity
+            android:name=".IndustrySelectActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ProductListingActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".ProfileActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
-            android:screenOrientation = "portrait"
             tools:ignore="DiscouragedApi" />
 
         <meta-data
@@ -47,16 +58,16 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@mipmap/ic_stat_notification" />
-
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
-            android:resource="@color/md_theme_primary" />
+            android:resource="@color/flipkart_blue" />
 
         <activity
             android:name=".SignUpActivity"
             android:exported="true"
-            android:screenOrientation = "portrait"
-            tools:ignore="DiscouragedApi" >
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.App.Starting"
+            tools:ignore="DiscouragedApi">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -66,14 +77,15 @@
         <activity
             android:name=".LoginActivity"
             android:exported="false"
-            android:screenOrientation = "portrait"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
             tools:ignore="DiscouragedApi" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
-            android:screenOrientation = "portrait"
-            tools:ignore="DiscouragedApi" >
+            tools:ignore="DiscouragedApi">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

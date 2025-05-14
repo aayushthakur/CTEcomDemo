@@ -45,8 +45,16 @@ class ProfileActivity : AppCompatActivity() {
         }
 
 //        val theMap = mapOf("Electronics" to 1, "Mobile Phones" to 2, "Fashion" to 3, "Home & Kitchen" to 4, "Health" to 5, "Gift Cards" to 6, "Groceries" to 7)
+        var priorities = resources.getStringArray(R.array.categories)
+        val industry =
+            UtilityHelper.INSTANCE.getIndustrySelectionSharedPreference(applicationContext)
+                ?.getString(Constants.INDUSTRY,Constants.ECOMMERCE)
+        if (industry.equals(Constants.ECOMMERCE)){
+            priorities = resources.getStringArray(R.array.categories)
+        }else if (industry.equals(Constants.FINTECH)){
+            priorities = resources.getStringArray(R.array.fintech_categories)
+        }
 
-        val priorities = resources.getStringArray(R.array.categories)
         val arrayAdapter = ArrayAdapter(this, R.layout.dropdown_item, priorities)
         binding.categoryInputEditText.setAdapter(arrayAdapter)
 
@@ -107,7 +115,7 @@ class ProfileActivity : AppCompatActivity() {
     private fun showDatePicker() {
         // Create a DatePickerDialog
         val datePickerDialog = DatePickerDialog(
-            this,
+            this,R.style.CustomDatePickerTheme,
             { DatePicker, year: Int, monthOfYear: Int, dayOfMonth: Int ->
                 // Create a new Calendar instance to hold the selected date
                 val selectedDate = Calendar.getInstance()

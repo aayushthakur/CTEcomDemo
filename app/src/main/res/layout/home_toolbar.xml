@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:background="@color/flipkart_blue"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="10dp">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="20dp" />
+
+
+        <LinearLayout
+            android:id="@+id/topLL"
+            app:layout_constraintTop_toBottomOf="@id/guideline10"
+            android:layout_width="0dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            app:layout_constraintStart_toEndOf="@id/guideline8"
+            app:layout_constraintEnd_toStartOf="@id/guideline9"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:gravity="center|start"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:src="@mipmap/ic_launcher_round"
+                android:layout_height="40dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:paddingStart="5dp"
+                android:textSize="20sp"
+                android:textStyle="italic"
+                android:text="Ecom Demo"/>
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/toolbarNotifications"
+                android:layout_width="30dp"
+                app:srcCompat="@drawable/notif_icon"
+                app:tint="@color/blue_light1"
+                android:layout_height="30dp"/>
+
+        </LinearLayout>
+
+    <TextView
+        app:layout_constraintStart_toEndOf="@id/guideline8"
+        app:layout_constraintEnd_toStartOf="@id/guideline9"
+        android:id="@+id/deliveryAddress"
+        app:layout_constraintTop_toBottomOf="@id/topLL"
+        android:layout_gravity="center"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:gravity="center|start"
+        android:drawablePadding="5dp"
+        android:drawableStart="@drawable/location_icon_white_24dp"
+        android:drawableEnd="@drawable/arrow_drop_down_24dp_white"
+        android:layout_width="0dp"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:textSize="12sp"
+        android:textColor="@color/white"
+        android:text="HOME - AMRAPALI GOLF HOMES"
+        android:layout_height="wrap_content"/>
+
+
+    <AutoCompleteTextView
+        android:id="@+id/searchView"
+        app:layout_constraintTop_toBottomOf="@id/deliveryAddress"
+        app:layout_constraintStart_toEndOf="@id/guideline8"
+        app:layout_constraintEnd_toStartOf="@id/guideline9"
+        android:layout_width="0dp"
+        android:background="@drawable/search_background"
+        android:hint="Search"
+        android:drawableTint="@color/flipkart_blue"
+        android:drawableStart="@drawable/search_white_24dp"
+        android:layout_height="wrap_content"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="1dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="10dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

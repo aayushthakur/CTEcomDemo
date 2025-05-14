@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".IndustrySelectActivity">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="20dp" />
+
+        <include
+            android:id="@+id/include"
+            layout="@layout/toolbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/descriptionText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/include"
+            android:padding="20dp"
+            android:text="Click on Button, Application will close, Open again to see changes"
+            />
+
+        <Button
+            android:padding="15dp"
+            android:id="@+id/industryEcommerceSelection"
+            app:layout_constraintTop_toBottomOf="@id/descriptionText"
+            android:layout_width="200dp"
+            android:text="Ecommerce"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/guideline"
+            app:layout_constraintEnd_toStartOf="@id/guideline1" />
+
+
+        <Button
+            android:padding="15dp"
+            android:id="@+id/industryFintechSelection"
+            app:layout_constraintTop_toBottomOf="@id/industryEcommerceSelection"
+            android:layout_width="200dp"
+            android:text="Fintech"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/guideline"
+            app:layout_constraintEnd_toStartOf="@id/guideline1" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

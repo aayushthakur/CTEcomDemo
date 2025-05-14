@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/notification_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="12dp"
+    android:background="@color/colorAccent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/notification_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nykaa • Hurry!"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/notification_message"
+        android:layout_below="@id/notification_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Flat 50% OFF ends in -"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:layout_marginTop="4dp" />
+
+    <TextView
+        android:id="@+id/notification_subtext"
+        android:layout_below="@id/notification_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="✨ It's the best time to buy new..."
+        android:textColor="#FFFFFF"
+        android:textSize="14sp"
+        android:layout_marginTop="2dp" />
+
+    <TextView
+        android:id="@+id/timer_text"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/search_background"
+        android:padding="6dp"
+        android:text="02:51:06"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:textSize="14sp" />
+
+    <LinearLayout
+        android:id="@+id/button_container"
+        android:layout_below="@id/notification_subtext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        android:gravity="end">
+
+        <TextView
+            android:id="@+id/btn_dismiss"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dismiss"
+            android:textColor="@color/blue_light1"
+            android:padding="8dp" />
+
+        <TextView
+            android:id="@+id/btn_shop_now"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Shop Now"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:padding="8dp"
+            android:layout_marginStart="16dp" />
+    </LinearLayout>
+</RelativeLayout>

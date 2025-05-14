@@ -11,13 +11,13 @@
 
         <include
             android:id="@+id/include"
-            layout="@layout/toolbar"
+            layout="@layout/home_toolbar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/categoriesRecyclerView"
+            android:id="@+id/carouselBannerRecyclerView"
             app:layout_constraintTop_toBottomOf="@id/include"
             app:layout_constraintStart_toStartOf="@id/guideline"
             app:layout_constraintEnd_toStartOf="@id/guideline1"
@@ -26,8 +26,8 @@
             android:layout_height="wrap_content"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/carouselBannerRecyclerView"
-            app:layout_constraintTop_toBottomOf="@id/categoriesRecyclerView"
+            android:id="@+id/categoriesRecyclerView"
+            app:layout_constraintTop_toBottomOf="@id/carouselBannerRecyclerView"
             app:layout_constraintStart_toStartOf="@id/guideline"
             app:layout_constraintEnd_toStartOf="@id/guideline1"
             android:layout_marginTop="20dp"
@@ -37,11 +37,11 @@
         <ImageView
             android:id="@+id/PEBanner"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:layout_marginTop="20dp"
             app:layout_constraintStart_toStartOf="@id/guideline"
             app:layout_constraintEnd_toStartOf="@id/guideline1"
-            app:layout_constraintTop_toBottomOf="@id/carouselBannerRecyclerView" />
+            app:layout_constraintTop_toBottomOf="@id/categoriesRecyclerView" />
 
 
         <androidx.constraintlayout.widget.Guideline

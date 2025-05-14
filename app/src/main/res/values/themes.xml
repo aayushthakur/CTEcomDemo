@@ -1,80 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- Base application theme -->
     <style name="AppTheme" parent="Theme.Material3.Light.NoActionBar">
-        <item name="colorPrimary">@color/md_theme_primary</item>
-        <item name="colorOnPrimary">@color/md_theme_onPrimary</item>
-        <item name="colorPrimaryContainer">@color/md_theme_primaryContainer</item>
-        <item name="colorOnPrimaryContainer">@color/md_theme_onPrimaryContainer</item>
-        <item name="colorSecondary">@color/md_theme_secondary</item>
-        <item name="colorOnSecondary">@color/md_theme_onSecondary</item>
-        <item name="colorSecondaryContainer">@color/md_theme_secondaryContainer</item>
-        <item name="colorOnSecondaryContainer">@color/md_theme_onSecondaryContainer</item>
-        <item name="colorTertiary">@color/md_theme_tertiary</item>
-        <item name="colorOnTertiary">@color/md_theme_onTertiary</item>
-        <item name="colorTertiaryContainer">@color/md_theme_tertiaryContainer</item>
-        <item name="colorOnTertiaryContainer">@color/md_theme_onTertiaryContainer</item>
-        <item name="colorError">@color/md_theme_error</item>
-        <item name="colorOnError">@color/md_theme_onError</item>
-        <item name="colorErrorContainer">@color/md_theme_errorContainer</item>
-        <item name="colorOnErrorContainer">@color/md_theme_onErrorContainer</item>
-        <item name="android:colorBackground">@color/md_theme_background</item>
-        <item name="colorOnBackground">@color/md_theme_onBackground</item>
-        <item name="colorSurface">@color/md_theme_surface</item>
-        <item name="colorOnSurface">@color/md_theme_onSurface</item>
-        <item name="colorSurfaceVariant">@color/md_theme_surfaceVariant</item>
-        <item name="colorOnSurfaceVariant">@color/md_theme_onSurfaceVariant</item>
-        <item name="colorOutline">@color/md_theme_outline</item>
-        <item name="colorOutlineVariant">@color/md_theme_outlineVariant</item>
-        <item name="colorSurfaceInverse">@color/md_theme_inverseSurface</item>
-        <item name="colorOnSurfaceInverse">@color/md_theme_inverseOnSurface</item>
-        <item name="colorPrimaryInverse">@color/md_theme_inversePrimary</item>
-        <item name="colorPrimaryFixed">@color/md_theme_primaryFixed</item>
-        <item name="colorOnPrimaryFixed">@color/md_theme_onPrimaryFixed</item>
-        <item name="colorPrimaryFixedDim">@color/md_theme_primaryFixedDim</item>
-        <item name="colorOnPrimaryFixedVariant">@color/md_theme_onPrimaryFixedVariant</item>
-        <item name="colorSecondaryFixed">@color/md_theme_secondaryFixed</item>
-        <item name="colorOnSecondaryFixed">@color/md_theme_onSecondaryFixed</item>
-        <item name="colorSecondaryFixedDim">@color/md_theme_secondaryFixedDim</item>
-        <item name="colorOnSecondaryFixedVariant">@color/md_theme_onSecondaryFixedVariant</item>
-        <item name="colorTertiaryFixed">@color/md_theme_tertiaryFixed</item>
-        <item name="colorOnTertiaryFixed">@color/md_theme_onTertiaryFixed</item>
-        <item name="colorTertiaryFixedDim">@color/md_theme_tertiaryFixedDim</item>
-        <item name="colorOnTertiaryFixedVariant">@color/md_theme_onTertiaryFixedVariant</item>
-        <item name="colorSurfaceDim">@color/md_theme_surfaceDim</item>
-        <item name="colorSurfaceBright">@color/md_theme_surfaceBright</item>
-        <item name="colorSurfaceContainerLowest">@color/md_theme_surfaceContainerLowest</item>
-        <item name="colorSurfaceContainerLow">@color/md_theme_surfaceContainerLow</item>
-        <item name="colorSurfaceContainer">@color/md_theme_surfaceContainer</item>
-        <item name="colorSurfaceContainerHigh">@color/md_theme_surfaceContainerHigh</item>
-        <item name="colorSurfaceContainerHighest">@color/md_theme_surfaceContainerHighest</item>
-        <item name="android:statusBarColor">@color/md_theme_onPrimary</item>
-        <item name="android:windowLightStatusBar">true</item>
+        <item name="colorPrimary">@color/flipkart_blue</item>
+        <item name="colorPrimaryDark">@color/blue_dark</item>
+        <item name="colorAccent">@color/flipkart_yellow</item>
+        <item name="android:statusBarColor">@color/flipkart_blue</item>
+        <item name="android:navigationBarColor">@color/flipkart_black</item>
     </style>
 
+    <!-- Button style -->
+    <style name="ButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:background">@color/flipkart_yellow</item>
+        <item name="android:textColor">@color/flipkart_black</item>
+    </style>
+
+    <!-- Secondary Button style -->
+    <style name="SecondaryButton" parent="Widget.AppCompat.Button">
+        <item name="android:background">@color/coral</item>
+        <item name="android:textColor">@color/flipkart_black</item>
+    </style>
+
+    <!-- Alert style -->
+    <style name="AlertStyle" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/alert_red</item>
+        <item name="android:background">@color/gray_light</item>
+    </style>
+
+
     <style name="ActionBarTheme" parent="Widget.AppCompat.ActionBar">
-        <item name="android:background">@color/md_theme_primary</item> <!-- Primary color for the toolbar -->
+        <item name="android:background">@color/flipkart_blue</item> <!-- Primary color for the toolbar -->
         <item name="android:titleTextStyle">@style/ToolbarTitleText</item>
     </style>
 
     <style name="ToolbarTitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
-        <item name="android:textColor">@color/md_theme_onPrimary</item>
+        <item name="android:textColor">@color/blue_light1</item>
     </style>
 
     <style name="Theme.App.Starting" parent="Theme.SplashScreen">
         <!-- Set the splash screen background, animated icon, and animation duration. -->
-        <item name="windowSplashScreenBackground">@color/white</item>
+        <item name="windowSplashScreenBackground">@color/flipkart_yellow</item>
 
         <!-- Use windowSplashScreenAnimatedIcon to add either a drawable or an
              animated drawable. One of these is required. -->
-        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
+
         <!-- Required for animated icons -->
         <item name="windowSplashScreenAnimationDuration">500</item>
 
         <!-- Set the theme of the Activity that directly follows your splash screen. -->
         <!-- Required -->
         <item name="postSplashScreenTheme">@style/AppTheme</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+
+        <item name="android:windowBackground">@color/flipkart_yellow</item>
+        <item name="android:statusBarColor">@color/flipkart_blue</item>
     </style>
 
     <style name="Theme.BottomNavigationView.ActiveIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
-        <item name="android:color">@color/md_theme_primary</item>
+        <item name="android:color">@color/flipkart_blue</item>
     </style>
+
+    <style name="CustomDatePickerTheme" parent="Theme.MaterialComponents.Light.Dialog">
+        <!-- Dialog Background Color -->
+        <item name="colorPrimary">#027CD5</item> <!-- Flipkart Blue -->
+        <item name="colorPrimaryVariant">#006CB4</item> <!-- Darker Shade -->
+        <item name="colorAccent">#FFDE14</item> <!-- Flipkart Yellow -->
+        <item name="android:textColorPrimary">#000000</item> <!-- Black Text -->
+        <item name="android:colorBackground">#FFFFFF</item> <!-- White Background -->
+    </style>
+
+
+
 </resources>

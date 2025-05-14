@@ -96,6 +96,15 @@ class LoginActivity : AppCompatActivity() {
                         } else {
                             loginButtonClicked(recordPojo)
                         }
+                    }else if(!response.isSuccessful){
+                        Log.d(TAG, "onResponse() called with: call = $call, response = ${response.body()}")
+                        Log.d(TAG, "onResponse() called with: call = $call, response = ${response.errorBody()}")
+                        runOnUiThread(Runnable {
+                            //do something
+                            showHideProgressView(false)
+
+                        })
+                        Toast.makeText(applicationContext, "Login Failed", Toast.LENGTH_SHORT).show()
                     }
                 }
 

@@ -21,6 +21,8 @@
             android:id="@+id/profileSection"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/search_background"
             android:paddingTop="16dp"
             android:paddingBottom="16dp"
             app:layout_constraintEnd_toStartOf="@id/guideline4"
@@ -109,6 +111,11 @@
                 android:id="@+id/admin_item"
                 layout="@layout/account_list_items" />
 
+
+            <include
+                android:id="@+id/industry_select_item"
+                android:visibility="gone"
+                layout="@layout/account_list_items" />
 
             <include
                 android:id="@+id/use_cases_item"

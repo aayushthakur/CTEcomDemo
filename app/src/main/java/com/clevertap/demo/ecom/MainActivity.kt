@@ -1,13 +1,19 @@
 package com.clevertap.demo.ecom
 
 import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.text.TextUtils
 import android.util.Log
+import android.widget.RemoteViews
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
@@ -26,6 +32,7 @@ import com.clevertap.demo.ecom.mainFragments.FavouriteFragment
 import com.clevertap.demo.ecom.mainFragments.FragmentCommunicator
 import com.clevertap.demo.ecom.mainFragments.HomeFragment
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.common.base.Objects
 import com.google.firebase.messaging.FirebaseMessaging
 import com.squareup.picasso.Picasso
 import retrofit2.Call
@@ -48,6 +55,7 @@ class MainActivity : AppCompatActivity(), PushPermissionResponseListener {
     private var activeFragment: Fragment? = homeFragment
     private lateinit var apiInterface: ApiInterface
     lateinit var festivalTheme: Var<String>
+    lateinit var fintechTheme: Var<String>
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,53 +78,108 @@ class MainActivity : AppCompatActivity(), PushPermissionResponseListener {
         }
         cleverTapDefaultInstance = MyApplication.getInstance().clevertap()
 
-        festivalTheme = cleverTapDefaultInstance.defineVariable(
-            "festival_theme","valentines")
+        val industry =
+            UtilityHelper.INSTANCE.getIndustrySelectionSharedPreference(applicationContext)
+                ?.getString(Constants.INDUSTRY,Constants.ECOMMERCE)
+
+        if (industry.equals(Constants.ECOMMERCE)){
+            festivalTheme = cleverTapDefaultInstance.defineVariable(
+                "festival_theme","valentines")
+
+            festivalTheme.addValueChangedCallback(object : VariableCallback<String>() {
+                override fun onValueChanged(varInstance: Var<String>) {
+                    varInstance.let { validInstance ->
+                        applicationContext?.let {
+                            Handler(it.mainLooper).post {
+                                festivalTheme = validInstance
+                                var imageUrl ="https://iili.io/2yFd6D7.jpg"
+                                if (festivalTheme.stringValue.equals("holi")){
+                                    imageUrl ="https://iili.io/2yFdix9.jpg"
+                                }
+                                Log.d(TAG, "onValueChanged() called with $validInstance $festivalTheme $imageUrl")
+                                // run code
+                                Picasso.get()
+                                    .load(imageUrl)
+                                    .into(object : com.squareup.picasso.Target {
+                                        override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
+                                            binding.main.background = BitmapDrawable(resources, bitmap)
+                                        }
+
+                                        override fun onBitmapFailed(e: java.lang.Exception?, errorDrawable: android.graphics.drawable.Drawable?) {
+                                            // Handle error case
+                                            Log.d(
+                                                TAG,
+                                                "onBitmapFailed() called with: e = $e, errorDrawable = $errorDrawable"
+                                            )
+                                        }
+
+                                        override fun onPrepareLoad(placeHolderDrawable: android.graphics.drawable.Drawable?) {
+                                            // Optional: You can set a placeholder here
+                                        }
+                                    })
+                            }
+                        }
+                    }
+                }
+            })
+
+        }else if (industry.equals(Constants.FINTECH)){
+            fintechTheme = cleverTapDefaultInstance.defineVariable(
+                "fintech_theme","https://iili.io/3Fo7y9R.jpg")
+
+            fintechTheme.addValueChangedCallback(object : VariableCallback<String>() {
+                override fun onValueChanged(varInstance: Var<String>) {
+                    varInstance.let { validInstance ->
+                        applicationContext?.let {
+                            Handler(it.mainLooper).post {
+                                fintechTheme = validInstance
+                                var imageUrl =fintechTheme.stringValue
+                                Log.d(TAG, "onValueChanged() called with $validInstance $fintechTheme $imageUrl")
+                                // run code
+                                Picasso.get()
+                                    .load(imageUrl)
+                                    .into(object : com.squareup.picasso.Target {
+                                        override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
+                                            binding.main.background = BitmapDrawable(resources, bitmap)
+                                        }
+
+                                        override fun onBitmapFailed(e: java.lang.Exception?, errorDrawable: android.graphics.drawable.Drawable?) {
+                                            // Handle error case
+                                            Log.d(
+                                                TAG,
+                                                "onBitmapFailed() called with: e = $e, errorDrawable = $errorDrawable"
+                                            )
+                                        }
+
+                                        override fun onPrepareLoad(placeHolderDrawable: android.graphics.drawable.Drawable?) {
+                                            // Optional: You can set a placeholder here
+                                        }
+                                    })
+                            }
+                        }
+                    }
+                }
+            })
+
+        }
+
+
 
         cleverTapDefaultInstance.fetchVariables { isSuccess ->
             // isSuccess is true when server request is successful, false otherwise
             if (isSuccess) {
-                festivalTheme =
-                    cleverTapDefaultInstance.getVariable("festival_theme")
+                if (industry.equals(Constants.ECOMMERCE)){
+                    festivalTheme =
+                        cleverTapDefaultInstance.getVariable("festival_theme")
+                }else if (industry.equals(Constants.FINTECH)){
+                    fintechTheme =
+                        cleverTapDefaultInstance.getVariable("fintech_theme")
+
+                }
+
             }
         }
 
-        festivalTheme.addValueChangedCallback(object : VariableCallback<String>() {
-            override fun onValueChanged(varInstance: Var<String>) {
-                varInstance.let { validInstance ->
-                    applicationContext?.let {
-                        Handler(it.mainLooper).post {
-                            festivalTheme = validInstance
-                            var imageUrl ="https://iili.io/2tfZUNf.jpg"
-                            if (festivalTheme.stringValue.equals("holi")){
-                                 imageUrl ="https://iili.io/2tqejf4.jpg"
-                            }
-                            Log.d(TAG, "onValueChanged() called with $validInstance $festivalTheme $imageUrl")
-                            // run code
-                            Picasso.get()
-                                .load(imageUrl)
-                                .into(object : com.squareup.picasso.Target {
-                                    override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
-                                        binding.main.background = BitmapDrawable(resources, bitmap)
-                                    }
-
-                                    override fun onBitmapFailed(e: java.lang.Exception?, errorDrawable: android.graphics.drawable.Drawable?) {
-                                        // Handle error case
-                                        Log.d(
-                                            TAG,
-                                            "onBitmapFailed() called with: e = $e, errorDrawable = $errorDrawable"
-                                        )
-                                    }
-
-                                    override fun onPrepareLoad(placeHolderDrawable: android.graphics.drawable.Drawable?) {
-                                        // Optional: You can set a placeholder here
-                                    }
-                                })
-                        }
-                    }
-                }
-            }
-        })
 
         binding.bottomNavigationView.setOnItemSelectedListener {
             when (it.itemId) {
@@ -175,6 +238,8 @@ class MainActivity : AppCompatActivity(), PushPermissionResponseListener {
 //        if (prefEmail != null && TextUtils.isEmpty(prefName)) {
 //            getProfileDataViaEmail(prefEmail)
 //        }
+
+//        showCustomNotification(applicationContext)
     }
 
     private fun getProfileDataViaEmail(email: String){
@@ -259,6 +324,11 @@ class MainActivity : AppCompatActivity(), PushPermissionResponseListener {
                 val token = task.result
                 if (TextUtils.isEmpty(token)) {
                     cleverTapDefaultInstance.pushFcmRegistrationId(token, true)
+                    val data: HashMap<String, Any> = hashMapOf(
+                        "MSG-push" to true
+                    )
+                    Log.d(TAG, "push permission update() called  $data")
+                    CTAnalyticsHelper.INSTANCE.pushProfile(data)
                 }
 
             })
@@ -274,6 +344,27 @@ class MainActivity : AppCompatActivity(), PushPermissionResponseListener {
         super.onDestroy()
         cleverTapDefaultInstance.unregisterPushPermissionNotificationResponseListener(this)
     }
+
+
+//    fun showCustomNotification(context: Context) {
+//        val notificationLayout = RemoteViews(context.packageName, R.layout.custom_notif_layout_timer)
+//
+//        // Set values dynamically if needed
+//        notificationLayout.setTextViewText(R.id.timer_text, "02:51:06")
+//
+//        val intent = Intent(context, MainActivity::class.java)
+//        val pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+//
+//        val notification = NotificationCompat.Builder(context, "default_channel")
+//            .setSmallIcon(R.drawable.notif_icon)
+//            .setCustomContentView(notificationLayout)
+//            .setContentIntent(pendingIntent)
+//            .setAutoCancel(true)
+//            .build()
+//
+//        val notificationManager = NotificationManagerCompat.from(context)
+//        notificationManager.notify(1001, notification)
+//    }
 
 
     /*  override fun onDisplayUnitsLoaded(units: ArrayList<CleverTapDisplayUnit>?) {

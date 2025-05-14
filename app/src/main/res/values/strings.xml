@@ -14,6 +14,7 @@
     <string name="logout">Logout</string>
     <string name="profile">Profile</string>
     <string name="edit_profile">Edit Profile</string>
+    <string name="industry_selector">Industry Selector</string>
 
     <string-array name="categories">
         <item>Electronics</item>
@@ -23,5 +24,15 @@
         <item>Health</item>
         <item>Gift Cards</item>
         <item>Groceries</item>
+    </string-array>
+
+    <string-array name="fintech_categories">
+        <item>Electricity</item>
+        <item>Mobile Recharge</item>
+        <item>BroadBand</item>
+        <item>Loan</item>
+        <item>Bus</item>
+        <item>Gas</item>
+        <item>D2H</item>
     </string-array>
 </resources>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="200dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rounded_shape"
+    android:elevation="4dp"
+    android:padding="8dp">
+
+    <!-- Offer Badge -->
+    <TextView
+        android:id="@+id/offerBadge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/discount_bg"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="5%\noff"
+        android:textColor="@android:color/white"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Product Image -->
+    <ImageView
+        android:id="@+id/productImage"
+        android:layout_width="0dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="4dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/offerBadge"
+        tools:src="@drawable/ct_image" />
+
+    <!-- Product Name -->
+    <TextView
+        android:id="@+id/productName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Tata Salt"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/productImage" />
+
+    <!-- Product Weight -->
+    <TextView
+        android:id="@+id/productWeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="500 g"
+        android:textColor="#888888"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@id/productName"
+        app:layout_constraintTop_toBottomOf="@id/productName" />
+
+    <!-- Old Price -->
+    <TextView
+        android:id="@+id/oldPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="₹25"
+        android:textColor="#888888"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@id/productWeight"
+        app:layout_constraintTop_toBottomOf="@id/productWeight" />
+
+    <!-- Discounted Price -->
+    <TextView
+        android:id="@+id/newPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="₹24"
+        android:textColor="#9C27B0"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/oldPrice"
+        app:layout_constraintTop_toBottomOf="@id/oldPrice" />
+
+    <!-- Quantity Layout -->
+    <LinearLayout
+        android:id="@+id/quantityLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_margin="8dp"
+        android:background="@drawable/search_background"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <Button
+            android:id="@+id/btnMinus"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="@android:color/transparent"
+            android:text="−"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tvQuantity"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:gravity="center"
+            android:text="1"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnPlus"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="@android:color/transparent"
+            android:text="+"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <!-- Add Button -->
+    <ImageButton
+        android:id="@+id/btnAdd"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_margin="8dp"
+        android:background="@drawable/shopping_cart_black_24dp"
+        android:contentDescription="Add"
+        android:src="@drawable/shopping_cart_black_24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

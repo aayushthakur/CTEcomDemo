@@ -4,6 +4,7 @@ import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -13,7 +14,9 @@ import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
+import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import com.clevertap.android.sdk.CleverTapAPI
 import com.clevertap.android.sdk.pushnotification.fcm.CTFcmMessageHandler
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -71,7 +74,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         Log.d(TAG, "Refreshed token: $token")
         // You may want to send this token to your server for further use
         if (TextUtils.isEmpty(token)) {
-            MyApplication.getInstance().clevertap()?.pushFcmRegistrationId(token, true)
+            MyApplication.getInstance().clevertap().pushFcmRegistrationId(token, true)
         }
     }
 
@@ -117,4 +120,25 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         notificationManager.createNotificationChannel(channel)
         notificationManager.notify(0 /* ID of notification */, notificationBuilder.build())
     }
+
+    fun showCustomNotification(context: Context) {
+        val notificationLayout = RemoteViews(context.packageName, R.layout.custom_notif_layout_timer)
+
+        // Set values dynamically if needed
+        notificationLayout.setTextViewText(R.id.timer_text, "02:51:06")
+
+        val intent = Intent(context, MainActivity::class.java)
+        val pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+
+        val notification = NotificationCompat.Builder(context, "your_channel_id")
+            .setSmallIcon(R.drawable.notif_icon)
+            .setCustomContentView(notificationLayout)
+            .setContentIntent(pendingIntent)
+            .setAutoCancel(true)
+            .build()
+
+        val notificationManager = NotificationManagerCompat.from(context)
+        notificationManager.notify(1001, notification)
+    }
+
 }

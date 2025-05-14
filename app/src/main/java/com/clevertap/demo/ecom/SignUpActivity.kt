@@ -118,7 +118,7 @@ class SignUpActivity : AppCompatActivity() {
     private fun showDatePicker() {
         // Create a DatePickerDialog
         val datePickerDialog = DatePickerDialog(
-            this,
+            this, R.style.CustomDatePickerTheme,
             { DatePicker, year: Int, monthOfYear: Int, dayOfMonth: Int ->
                 // Create a new Calendar instance to hold the selected date
                 val selectedDate = Calendar.getInstance()
