@@ -16,7 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.App.Starting"
         tools:targetApi="31">
-
+        <activity
+            android:name=".TestJC"
+            android:exported="false" />
         <activity
             android:name=".IndustrySelectActivity"
             android:exported="false"
@@ -86,11 +88,17 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             tools:ignore="DiscouragedApi">
-            <intent-filter>
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+
+                <data
+                    android:host="www.app.ctecomdemo.com"
+                    android:pathPrefix="/main"
+                    android:scheme="https" />
             </intent-filter>
         </activity>
     </application>

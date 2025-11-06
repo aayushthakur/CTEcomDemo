@@ -21,6 +21,20 @@
 
         </FrameLayout>
 
+        <TextView
+            android:id="@+id/orderDeliveryTextView"
+            app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:visibility="invisible"
+            tools:visibility="visible"
+            android:textColor="@color/white"
+            tools:text="Hi Your order is On The way &amp; will reach by 26/07/2025"
+            android:background="@color/alert_red"/>
+
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigationView"
             android:layout_width="0dp"

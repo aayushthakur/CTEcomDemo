@@ -3,6 +3,8 @@ package com.clevertap.demo.ecom.mainFragments
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
+import com.bumptech.glide.request.target.Target // ✅ CORRECT
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -16,6 +18,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL
 import androidx.recyclerview.widget.LinearSnapHelper
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
 import com.clevertap.android.sdk.CTInboxListener
 import com.clevertap.android.sdk.CTInboxStyleConfig
 import com.clevertap.android.sdk.CleverTapAPI
@@ -66,6 +72,7 @@ class HomeFragment : Fragment(), FragmentCommunicator, DisplayUnitListener, CTIn
     lateinit var financialCategories: Var<String>
     lateinit var bottomFinanceBanner: Var<String>
     lateinit var financialCarousel: Var<String>
+    lateinit var walletBalance: Var<Int>
     var industry: String = Constants.ECOMMERCE
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -129,7 +136,45 @@ class HomeFragment : Fragment(), FragmentCommunicator, DisplayUnitListener, CTIn
                 ?.getString(Constants.INDUSTRY,Constants.ECOMMERCE)
         }!!;
 
-        if (industry.equals(Constants.ECOMMERCE)){
+        binding.changeProp.setOnClickListener { view ->
+            val data: HashMap<String, Any> = hashMapOf(
+                "Preferred Category" to "Health"
+            )
+            Log.d(TAG, "profileUpdateButtonClicked() called  $data")
+            CTAnalyticsHelper.INSTANCE.pushProfile(data)
+
+            cleverTapDefaultInstance.fetchVariables { isSuccess ->
+                // isSuccess is true when server request is successful, false otherwise
+                if (isSuccess) {
+
+                    if (industry.equals(Constants.ECOMMERCE)) {
+                        topCategories =
+                            cleverTapDefaultInstance.getVariable("top_categories")
+
+                        bottomBanner =
+                            cleverTapDefaultInstance.getVariable("bottom_banner")
+
+                        Log.d(TAG, "topCategories = ${topCategories.stringValue()}")
+                        Log.d(TAG, "bottomBanner = ${bottomBanner.stringValue()}")
+
+                    } else if (industry.equals(Constants.FINTECH)) {
+
+                        financialCategories =
+                            cleverTapDefaultInstance.getVariable("financial_categories")
+
+                        bottomFinanceBanner =
+                            cleverTapDefaultInstance.getVariable("bottom_finance_banner")
+
+                        financialCarousel =
+                            cleverTapDefaultInstance.getVariable("financial_carousel")
+                    }
+
+
+                }
+            }
+        }
+
+       /* if (industry.equals(Constants.ECOMMERCE)){
             topCategories = cleverTapDefaultInstance.defineVariable(
                 "top_categories",
                 "{\"top_categories\":[{\"name\":\"Electronics\",\"image_url\":\"https://lh3.googleusercontent.com/d/1r5lyfdRNgArYVTqLidZ18QcfEiLiJmW7\",\"redirect_url\":\"\",\"order\":1},{\"name\":\"Mobile Phones\",\"image_url\":\"https://lh3.googleusercontent.com/d/12AuvIQ4361wTwxbLUAhx-eOD8qmWImtB\",\"redirect_url\":\"\",\"order\":2},{\"name\":\"Fashion\",\"image_url\":\"https://lh3.googleusercontent.com/d/13YcO3qvkjM3o5I6nH2dStpIQkvw4GJnJ\",\"redirect_url\":\"\",\"order\":3},{\"name\":\"Home & Kitchen\",\"image_url\":\"https://lh3.googleusercontent.com/d/1Xmkz060pg1Z_CU_bp6-7CaRWmHXmnN6Y\",\"redirect_url\":\"\",\"order\":4},{\"name\":\"Health\",\"image_url\":\"https://lh3.googleusercontent.com/d/1_5eJPxNbV_AmfxsBP0hpTjcytgi8xLQf\",\"redirect_url\":\"\",\"order\":5},{\"name\":\"Gift Cards\",\"image_url\":\"https://lh3.googleusercontent.com/d/1AbL31Jfhm-6veBrEzvu_cUX5JqgTTWLk\",\"redirect_url\":\"\",\"order\":6},{\"name\":\"Groceries\",\"image_url\":\"https://lh3.googleusercontent.com/d/1QaeypE-4qfq_x_E23lAO4ppZmmu6JQA6\",\"redirect_url\":\"\",\"order\":7}]}"
@@ -139,6 +184,25 @@ class HomeFragment : Fragment(), FragmentCommunicator, DisplayUnitListener, CTIn
                 "bottom_banner",
                 "valentines"
             )
+
+            walletBalance = cleverTapDefaultInstance.defineVariable(
+                "wallet_balance",
+                0
+            )
+
+            walletBalance.addValueChangedCallback(object : VariableCallback<Int>() {
+                override fun onValueChanged(varInstance: Var<Int>) {
+                    varInstance.let { validInstance ->
+                        context?.let {
+                            Handler(it.mainLooper).post {
+                                walletBalance = validInstance
+                                // run code
+                                renderWalletBalance()
+                            }
+                        }
+                    }
+                }
+            })
 
             topCategories.addValueChangedCallback(object : VariableCallback<String>() {
                 override fun onValueChanged(varInstance: Var<String>) {
@@ -195,6 +259,276 @@ class HomeFragment : Fragment(), FragmentCommunicator, DisplayUnitListener, CTIn
                 "financial_carousel",
                 "{\"carousel_images\":[{\"image_name\":\"bill1\",\"image_url\":\"https://iili.io/3F37yCl.webp\",\"image_redirect_url\":\"test\",\"image_order\":1},{\"image_name\":\"bill2\",\"image_url\":\"https://iili.io/3F3YH4S.png\",\"image_redirect_url\":\"test\",\"image_order\":2},{\"image_name\":\"bill3\",\"image_url\":\"https://iili.io/3F3Y9G2.jpg\",\"image_redirect_url\":\"test\",\"image_order\":3}]}")
 
+            walletBalance = cleverTapDefaultInstance.defineVariable(
+                "wallet_balance",
+                0
+            )
+
+            walletBalance.addValueChangedCallback(object : VariableCallback<Int>() {
+                override fun onValueChanged(varInstance: Var<Int>) {
+                    varInstance.let { validInstance ->
+                        context?.let {
+                            Handler(it.mainLooper).post {
+                                walletBalance = validInstance
+                                // run code
+                                renderWalletBalance()
+                            }
+                        }
+                    }
+                }
+            })
+
+            financialCategories.addValueChangedCallback(object : VariableCallback<String>() {
+                override fun onValueChanged(varInstance: Var<String>) {
+                    varInstance.let { validInstance ->
+                        context?.let {
+                            Handler(it.mainLooper).post {
+                                financialCategories = validInstance
+                                // run code
+                                renderFintechData()
+                            }
+                        }
+                    }
+                }
+            })
+
+            financialCarousel.addValueChangedCallback(object : VariableCallback<String>() {
+                override fun onValueChanged(varInstance: Var<String>) {
+                    varInstance.let { validInstance ->
+                        context?.let {
+                            Handler(it.mainLooper).post {
+                                financialCarousel = validInstance
+                                // run code
+                                renderFinancialCarousel()
+                            }
+                        }
+                    }
+                }
+            })
+
+            bottomFinanceBanner.addValueChangedCallback(object :VariableCallback<String>(){
+                override fun onValueChanged(varInstance: Var<String>) {
+                    varInstance.let { instance ->
+                        context?.let {
+                            Handler(it.mainLooper).post {
+                                bottomFinanceBanner = instance
+
+                                var imageUrl = bottomFinanceBanner.stringValue
+                                Log.d(
+                                    TAG,
+                                    "onValueChanged() called with $instance $bottomFinanceBanner $imageUrl"
+                                )
+                                // run code
+                                Picasso.get()
+                                    .load(imageUrl)
+                                    .into(binding.PEBanner)
+                            }
+                        }
+                    }
+                }
+
+
+            })
+        }*/
+
+
+
+//        cleverTapDefaultInstance.getCleverTapID{id ->
+//            var ctid = id
+//    }
+
+        /*cleverTapDefaultInstance.fetchVariables { isSuccess ->
+            // isSuccess is true when server request is successful, false otherwise
+            if (isSuccess) {
+
+                if (industry.equals(Constants.ECOMMERCE)){
+                    topCategories =
+                        cleverTapDefaultInstance.getVariable("top_categories")
+
+                    bottomBanner =
+                        cleverTapDefaultInstance.getVariable("bottom_banner")
+                }else if (industry.equals(Constants.FINTECH)){
+
+                    financialCategories =
+                        cleverTapDefaultInstance.getVariable("financial_categories")
+
+                    bottomFinanceBanner =
+                        cleverTapDefaultInstance.getVariable("bottom_finance_banner")
+
+                    financialCarousel = cleverTapDefaultInstance.getVariable("financial_carousel")
+                }
+
+
+
+            }
+        }*/
+        return binding.root
+    }
+
+
+    fun renderData() {
+        categoriesList.clear()
+        categoriesAdapter.clearList()
+        val gson = Gson().fromJson(
+            topCategories.stringValue, TopCategoriesPOJO::class.java
+        )
+        for (data in gson.topCategories) {
+            categoriesList.add(
+                ImageModel(
+                    data.imageUrl,
+                    data.name,
+                    data.redirectUrl,
+                    data.order
+                )
+            )
+        }
+
+        var sortedList = categoriesList.sortedWith(compareBy { it.order })
+        categoriesAdapter.updateList(sortedList)
+        categoriesAdapter.notifyDataSetChanged()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG, "onResume() called")
+        loadPEData()
+    }
+
+    fun loadPEData(){
+        if (industry.equals(Constants.ECOMMERCE)){
+            topCategories = cleverTapDefaultInstance.defineVariable(
+                "top_categories",
+                "{\"top_categories\":[{\"name\":\"Electronics\",\"image_url\":\"https://lh3.googleusercontent.com/d/1r5lyfdRNgArYVTqLidZ18QcfEiLiJmW7\",\"redirect_url\":\"\",\"order\":1},{\"name\":\"Mobile Phones\",\"image_url\":\"https://lh3.googleusercontent.com/d/12AuvIQ4361wTwxbLUAhx-eOD8qmWImtB\",\"redirect_url\":\"\",\"order\":2},{\"name\":\"Fashion\",\"image_url\":\"https://lh3.googleusercontent.com/d/13YcO3qvkjM3o5I6nH2dStpIQkvw4GJnJ\",\"redirect_url\":\"\",\"order\":3},{\"name\":\"Home & Kitchen\",\"image_url\":\"https://lh3.googleusercontent.com/d/1Xmkz060pg1Z_CU_bp6-7CaRWmHXmnN6Y\",\"redirect_url\":\"\",\"order\":4},{\"name\":\"Health\",\"image_url\":\"https://lh3.googleusercontent.com/d/1_5eJPxNbV_AmfxsBP0hpTjcytgi8xLQf\",\"redirect_url\":\"\",\"order\":5},{\"name\":\"Gift Cards\",\"image_url\":\"https://lh3.googleusercontent.com/d/1AbL31Jfhm-6veBrEzvu_cUX5JqgTTWLk\",\"redirect_url\":\"\",\"order\":6},{\"name\":\"Groceries\",\"image_url\":\"https://lh3.googleusercontent.com/d/1QaeypE-4qfq_x_E23lAO4ppZmmu6JQA6\",\"redirect_url\":\"\",\"order\":7}]}"
+            )
+
+            bottomBanner = cleverTapDefaultInstance.defineVariable(
+                "bottom_banner",
+                "valentines"
+            )
+
+            walletBalance = cleverTapDefaultInstance.defineVariable(
+                "wallet_balance",
+                0
+            )
+
+            walletBalance.addValueChangedCallback(object : VariableCallback<Int>() {
+                override fun onValueChanged(varInstance: Var<Int>) {
+                    varInstance.let { validInstance ->
+                        context?.let {
+                            Handler(it.mainLooper).post {
+                                walletBalance = validInstance
+                                // run code
+                                renderWalletBalance()
+                            }
+                        }
+                    }
+                }
+            })
+
+            topCategories.addValueChangedCallback(object : VariableCallback<String>() {
+                override fun onValueChanged(varInstance: Var<String>) {
+                    varInstance.let { validInstance ->
+                        context?.let {
+                            Handler(it.mainLooper).post {
+                                topCategories = validInstance
+                                // run code
+                                renderData()
+                            }
+                        }
+                    }
+                }
+            })
+
+            bottomBanner.addValueChangedCallback(object :VariableCallback<String>(){
+                override fun onValueChanged(varInstance: Var<String>) {
+                    varInstance.let { instance ->
+                        context?.let {
+                            Handler(it.mainLooper).post {
+                                bottomBanner = instance
+
+                                var imageUrl = "https://db1f5xelmebpj.cloudfront.net/1642491392/assets/53fe990858ed4df9a90e9f8c5d74ff84.jpeg"
+                                if (bottomBanner.stringValue.equals("holi")) {
+                                    imageUrl = "https://db1f5xelmebpj.cloudfront.net/1642491392/assets/e814ec7d903a4c7290fc9b34d826b332.png"
+                                }
+                                Log.d(
+                                    TAG,
+                                    "onValueChanged() called with $instance $bottomBanner $imageUrl"
+                                )
+                                Glide.with(this@HomeFragment)
+                                    .load(imageUrl)
+                                    .listener(object : RequestListener<Drawable> {
+                                        override fun onLoadFailed(
+                                            e: GlideException?,
+                                            model: Any?,
+                                            target: Target<Drawable>?,
+                                            isFirstResource: Boolean
+                                        ): Boolean {
+                                            // THIS IS THE KEY: Log the error
+                                            Log.e(TAG, "Glide onLoadFailed: Image load failed for URL: $imageUrl", e)
+                                            return false // Return false to allow the error placeholder to be set
+                                        }
+
+                                        override fun onResourceReady(
+                                            resource: Drawable?,
+                                            model: Any?,
+                                            target: Target<Drawable>?,
+                                            dataSource: DataSource?,
+                                            isFirstResource: Boolean
+                                        ): Boolean {
+                                            Log.d(TAG, "Glide onResourceReady: Image loaded successfully")
+                                            return false // Return false to allow Glide to handle setting the resource
+                                        }
+                                    })
+                                    .into(binding.PEBanner)
+
+//                                Glide.with(this@HomeFragment) // 'this' is the context (your Activity)
+//                                    .load(imageUrl)
+//                                    .into(binding.PEBanner)
+                                // run code
+//                                Picasso.get()
+//                                    .load(imageUrl)
+//                                    .into(binding.PEBanner)
+                            }
+                        }
+                    }
+                }
+
+
+            })
+        }else if (industry.equals(Constants.FINTECH)){
+            financialCategories = cleverTapDefaultInstance.defineVariable(
+                "financial_categories",
+                "{\"top_categories\":[{\"name\":\"Loan\",\"image_url\":\"https://iili.io/33q6kdX.png\",\"redirect_url\":\"\",\"order\":1},{\"name\":\"Gas Booking\",\"image_url\":\"https://iili.io/33q6XXR.png\",\"redirect_url\":\"\",\"order\":2},{\"name\":\"D2H\",\"image_url\":\"https://iili.io/33q6hsp.png\",\"redirect_url\":\"\",\"order\":3},{\"name\":\"Bus\",\"image_url\":\"https://iili.io/33q6E5g.png\",\"redirect_url\":\"\",\"order\":4},{\"name\":\"BroadBand\",\"image_url\":\"https://iili.io/33q6Wzv.png\",\"redirect_url\":\"\",\"order\":5},{\"name\":\"Mobile Recharge\",\"image_url\":\"https://iili.io/33q6wqN.png\",\"redirect_url\":\"\",\"order\":6},{\"name\":\"Electricity\",\"image_url\":\"https://iili.io/33q6Ogt.png\",\"redirect_url\":\"\",\"order\":7}]}"
+            )
+
+            bottomFinanceBanner = cleverTapDefaultInstance.defineVariable(
+                "bottom_finance_banner",
+                "https://iili.io/33kZyB9.jpg"
+            )
+
+            financialCarousel = cleverTapDefaultInstance.defineVariable(
+                "financial_carousel",
+                "{\"carousel_images\":[{\"image_name\":\"bill1\",\"image_url\":\"https://iili.io/3F37yCl.webp\",\"image_redirect_url\":\"test\",\"image_order\":1},{\"image_name\":\"bill2\",\"image_url\":\"https://iili.io/3F3YH4S.png\",\"image_redirect_url\":\"test\",\"image_order\":2},{\"image_name\":\"bill3\",\"image_url\":\"https://iili.io/3F3Y9G2.jpg\",\"image_redirect_url\":\"test\",\"image_order\":3}]}")
+
+            walletBalance = cleverTapDefaultInstance.defineVariable(
+                "wallet_balance",
+                0
+            )
+
+            walletBalance.addValueChangedCallback(object : VariableCallback<Int>() {
+                override fun onValueChanged(varInstance: Var<Int>) {
+                    varInstance.let { validInstance ->
+                        context?.let {
+                            Handler(it.mainLooper).post {
+                                walletBalance = validInstance
+                                // run code
+                                renderWalletBalance()
+                            }
+                        }
+                    }
+                }
+            })
+
             financialCategories.addValueChangedCallback(object : VariableCallback<String>() {
                 override fun onValueChanged(varInstance: Var<String>) {
                     varInstance.let { validInstance ->
@@ -247,24 +581,17 @@ class HomeFragment : Fragment(), FragmentCommunicator, DisplayUnitListener, CTIn
 
             })
         }
-
-
-
-//        cleverTapDefaultInstance.getCleverTapID{id ->
-//            var ctid = id
-//    }
-
         cleverTapDefaultInstance.fetchVariables { isSuccess ->
             // isSuccess is true when server request is successful, false otherwise
             if (isSuccess) {
 
-                if (industry.equals(Constants.ECOMMERCE)){
+                if (industry.equals(Constants.ECOMMERCE)) {
                     topCategories =
                         cleverTapDefaultInstance.getVariable("top_categories")
 
                     bottomBanner =
                         cleverTapDefaultInstance.getVariable("bottom_banner")
-                }else if (industry.equals(Constants.FINTECH)){
+                } else if (industry.equals(Constants.FINTECH)) {
 
                     financialCategories =
                         cleverTapDefaultInstance.getVariable("financial_categories")
@@ -276,33 +603,13 @@ class HomeFragment : Fragment(), FragmentCommunicator, DisplayUnitListener, CTIn
                 }
 
 
-
             }
         }
-        return binding.root
     }
 
-
-    fun renderData() {
-        categoriesList.clear()
-        categoriesAdapter.clearList()
-        val gson = Gson().fromJson(
-            topCategories.stringValue, TopCategoriesPOJO::class.java
-        )
-        for (data in gson.topCategories) {
-            categoriesList.add(
-                ImageModel(
-                    data.imageUrl,
-                    data.name,
-                    data.redirectUrl,
-                    data.order
-                )
-            )
-        }
-
-        var sortedList = categoriesList.sortedWith(compareBy { it.order })
-        categoriesAdapter.updateList(sortedList)
-        categoriesAdapter.notifyDataSetChanged()
+    fun renderWalletBalance(){
+        binding.include.toolbarWallet.setText(walletBalance.value().toString())
+        binding.include.toolbarWallet.visibility = View.VISIBLE
     }
 
     fun renderFintechData() {
