@@ -109,7 +109,10 @@ class HomeFragment : Fragment(), FragmentCommunicator, DisplayUnitListener, CTIn
 
         categoriesAdapter.setOnItemClickListener(object : CategoriesAdapter.OnItemClickListener {
             override fun onClick(imageView: ImageView?, url: String?, redirectUrl: String?) {
-                //Do something like opening the image in new activity or showing it in full screen or something else.
+                parentFragmentManager.beginTransaction()
+                    .replace(this@HomeFragment.requireView().id, ItemListingFragment())
+                    .addToBackStack(null)
+                    .commit()
             }
         })
 
