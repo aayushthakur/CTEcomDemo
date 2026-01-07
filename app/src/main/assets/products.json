@@ -1,0 +1,92 @@
+[
+  {
+    "id": "SKU-1001",
+    "title": "Men's Quilted Black Puffer Jacket",
+    "price": 4470,
+    "original_price": 5259,
+    "discount": "15% OFF",
+    "color": "Black",
+    "image_url": "https://levi.in/cdn/shop/files/A45380017_01_Stylshoot_360x.jpg?v=1763443288&width=400"
+  },
+  {
+    "id": "SKU-1002",
+    "title": "Men's Solid Olive Puffer Jacket",
+    "price": 4470,
+    "original_price": 5259,
+    "discount": "15% OFF",
+    "color": "Olive Green",
+    "image_url": "https://levi.in/cdn/shop/files/A45380018_01_Styleshot_360x.jpg?v=1762929574&width=400"
+  },
+  {
+    "id": "SKU-1003",
+    "title": "Men's Solid Blue Spread Collar Denim Jacket",
+    "price": 4113,
+    "original_price": 4839,
+    "discount": "15% OFF",
+    "color": "Blue",
+    "image_url": "https://levi.in/cdn/shop/files/248690154_01_Styleshot_360x.jpg?v=1756797371&width=400"
+  },
+  {
+    "id": "SKU-1004",
+    "title": "Men's Solid Black Bomber Jacket",
+    "price": 5014,
+    "original_price": 5899,
+    "discount": "15% OFF",
+    "color": "Black",
+    "image_url": "https://levi.in/cdn/shop/files/004JV0000_01_Styleshot_360x.jpg?v=1764916141&width=400"
+  },
+  {
+    "id": "SKU-1005",
+    "title": "Men's Tan Suede Casual Jacket",
+    "price": 5540,
+    "original_price": 6519,
+    "discount": "15% OFF",
+    "color": "Tan",
+    "image_url": "https://levi.in/cdn/shop/files/004JS0001_01_Styleshot_360x.jpg?v=1760038103&width=400"
+  },
+  {
+    "id": "SKU-1006",
+    "title": "Men's Navy Sports Bomber Jacket",
+    "price": 4899,
+    "original_price": 5750,
+    "discount": "15% OFF",
+    "color": "Navy Blue",
+    "image_url": "https://levi.in/cdn/shop/files/004JS0000_01_Styleshot_360x.jpg?v=1762933140&width=400"
+  },
+  {
+    "id": "SKU-1007",
+    "title": "Men's Maroon Quilted Winter Jacket",
+    "price": 4620,
+    "original_price": 5435,
+    "discount": "15% OFF",
+    "color": "Maroon",
+    "image_url": "https://levi.in/cdn/shop/files/248690153_01_Styleshot_360x.jpg?v=1753096105&width=400"
+  },
+  {
+    "id": "SKU-1008",
+    "title": "Men's Grey Lightweight Travel Jacket",
+    "price": 4299,
+    "original_price": 5050,
+    "discount": "15% OFF",
+    "color": "Grey",
+    "image_url": "https://levi.in/cdn/shop/files/004JZ0002_01_Styleshot_360x.jpg?v=1762859239&width=400"
+  },
+  {
+    "id": "SKU-1009",
+    "title": "Men's Solid Forest Green Utility Jacket",
+    "price": 5780,
+    "original_price": 6800,
+    "discount": "15% OFF",
+    "color": "Forest Green",
+    "image_url": "https://levi.in/cdn/shop/files/006MZ0001_01_Elevated_360x.jpg?v=1758522789&width=400"
+  },
+  {
+    "id": "SKU-1010",
+    "title": "Men's Classic Brown Leather Jacket",
+    "price": 7990,
+    "original_price": 9400,
+    "discount": "15% OFF",
+    "color": "Brown",
+    "image_url": "https://levi.in/cdn/shop/files/004JV0001_01_Styleshot_360x.jpg?v=1760036634&width=400"
+  }
+]
