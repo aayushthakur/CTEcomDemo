@@ -26,6 +26,11 @@
         <item>Groceries</item>
     </string-array>
 
+    <string-array name="themes">
+        <item>holi</item>
+        <item>valentines</item>
+    </string-array>
+
     <string-array name="fintech_categories">
         <item>Electricity</item>
         <item>Mobile Recharge</item>

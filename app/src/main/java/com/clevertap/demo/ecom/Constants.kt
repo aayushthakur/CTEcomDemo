@@ -4,6 +4,8 @@ object Constants {
     const val email = "Email"
     const val phone = "Phone"
     const val categoryPreference = "Category Preference"
+
+    const val themePreference = "Theme Preference"
     const val dob = "DOB"
     const val name = "Name"
     const val PII = "PII"

@@ -161,9 +161,11 @@ class LoginActivity : AppCompatActivity() {
         val profileData = recordPojo.profileData
         var dob = ""
         var preferredCategory = ""
+        var preferredTheme = ""
         if (profileData != null) {
             dob = profileData.dob!!
             preferredCategory = profileData.preferredcategory!!
+            preferredTheme = profileData.preferredtheme!!
         }
         if (!TextUtils.isEmpty(dob)) {
             // Extract the value after the underscore
@@ -189,12 +191,12 @@ class LoginActivity : AppCompatActivity() {
         )
         if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(name)
             && !TextUtils.isEmpty(phone)
-            && !TextUtils.isEmpty(preferredCategory) && !TextUtils.isEmpty(dob)
+            && !TextUtils.isEmpty(preferredCategory) && !TextUtils.isEmpty(preferredTheme) && !TextUtils.isEmpty(dob)
         ) {
 
             UtilityHelper.INSTANCE.savePIIDataSharedPreference(
                 applicationContext,
-                email!!, name, "+$phone", preferredCategory, dob
+                email!!, name, "+$phone", preferredCategory, preferredTheme, dob
             )
 
             val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
@@ -206,6 +208,7 @@ class LoginActivity : AppCompatActivity() {
                 "Phone" to "+$phone",
                 "Name" to name.toString(),
                 "Preferred Category" to preferredCategory,
+                "Preferred Theme" to preferredTheme,
                 ("DOB" to date) as Pair<String, Any>,
                 "MSG-sms" to true,
                 "MSG-email" to true,

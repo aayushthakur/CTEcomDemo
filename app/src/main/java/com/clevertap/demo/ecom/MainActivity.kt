@@ -89,6 +89,134 @@ class MainActivity : AppCompatActivity()/*, PushPermissionResponseListener*/ {
         }
         cleverTapDefaultInstance = MyApplication.getInstance().clevertap()
 
+        loadPEData()
+
+        binding.bottomNavigationView.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.home -> {
+                    fragmentManager.beginTransaction().hide(activeFragment!!).show(homeFragment!!)
+                        .commit()
+                    activeFragment = homeFragment
+                    true
+                }
+
+                R.id.cart -> {
+                    fragmentManager.beginTransaction().hide(activeFragment!!).show(cartFragment!!)
+                        .commit()
+                    activeFragment = cartFragment
+                    true
+                }
+
+                R.id.fav -> {
+                    fragmentManager.beginTransaction().hide(activeFragment!!)
+                        .show(favouriteFragment!!).commit()
+                    activeFragment = favouriteFragment
+                    true
+                }
+
+                R.id.profile -> {
+                    fragmentManager.beginTransaction().hide(activeFragment!!)
+                        .show(accountFragment!!).commit()
+                    activeFragment = accountFragment
+                    true
+                }
+
+                else -> false
+            }
+        }
+
+        //setting default fragment as Home
+        loadFragment(activeFragment!!)
+
+       /* requestPermissionLauncher = registerForActivityResult(
+            ActivityResultContracts.RequestPermission()
+        ) { isGranted: Boolean ->
+            if (isGranted) {
+                FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+                    if (!task.isSuccessful) {
+                        return@OnCompleteListener
+                    }
+
+                    // fetching the token
+                    val token = task.result
+                    if (TextUtils.isEmpty(token)) {
+                        cleverTapDefaultInstance.pushFcmRegistrationId(token, true)
+                        val data: HashMap<String, Any> = hashMapOf(
+                            "MSG-push" to true
+                        )
+                        Log.d(TAG, "push permission update() called  $data")
+                        CTAnalyticsHelper.INSTANCE.pushProfile(data)
+                    }
+
+                })
+                CleverTapAPI.createNotificationChannel(
+                    applicationContext, "default_channel", "Default Channel",
+                    "Default Channel", NotificationManager.IMPORTANCE_MAX, true
+                )
+
+                Toast.makeText(this, "Notifications permission granted", Toast.LENGTH_SHORT)
+                    .show()
+            } else {
+//            Toast.makeText(
+//                this, "${getString(R.string.app_name)} can't post notifications without Notification permission",
+//                Toast.LENGTH_LONG
+//            ).show()
+
+                Snackbar.make(
+                    binding.main,
+                    String.format(
+                        String.format(
+                            "You Denied Push Permission before, Please click on Settings and allow the push permission",
+                            getString(R.string.app_name)
+                        )
+                    ),
+                    Snackbar.LENGTH_INDEFINITE
+                ).setAction("Settings") {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        val settingsIntent: Intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
+                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            .putExtra(Settings.EXTRA_APP_PACKAGE, packageName)
+                        startActivity(settingsIntent)
+                    }
+                }.show()
+            }
+        }
+
+        askNotificationPermission()*/
+
+        /*cleverTapDefaultInstance.registerPushPermissionNotificationResponseListener(this)
+
+        val builder = CTLocalInApp.builder()
+            .setInAppType(CTLocalInApp.InAppType.ALERT)
+            .setTitleText("Get Notified")
+            .setMessageText("Enable Notification permission")
+            .followDeviceOrientation(true)
+            .setPositiveBtnText("Allow")
+            .setNegativeBtnText("Cancel")
+            .build()
+        cleverTapDefaultInstance.promptPushPrimer(builder)*/
+
+//        apiInterface = RetrofitInstance.getInstance().create(ApiInterface::class.java)
+//        val prefEmail = UtilityHelper.INSTANCE.getPIISavedDataSharedPreference(applicationContext)
+//            ?.getString(Constants.email,"");
+//        val prefName = UtilityHelper.INSTANCE.getPIISavedDataSharedPreference(applicationContext)
+//            ?.getString(Constants.name,"");
+//        if (prefEmail != null && TextUtils.isEmpty(prefName)) {
+//            getProfileDataViaEmail(prefEmail)
+//        }
+
+//        showCustomNotification(applicationContext)
+
+        checkNotificationPermission()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG, "onResume() called")
+        loadPEData()
+    }
+
+    private fun loadPEData(){
         val industry =
             UtilityHelper.INSTANCE.getIndustrySelectionSharedPreference(applicationContext)
                 ?.getString(Constants.INDUSTRY, Constants.ECOMMERCE)
@@ -268,125 +396,6 @@ class MainActivity : AppCompatActivity()/*, PushPermissionResponseListener*/ {
 
             }
         }
-
-
-        binding.bottomNavigationView.setOnItemSelectedListener {
-            when (it.itemId) {
-                R.id.home -> {
-                    fragmentManager.beginTransaction().hide(activeFragment!!).show(homeFragment!!)
-                        .commit()
-                    activeFragment = homeFragment
-                    true
-                }
-
-                R.id.cart -> {
-                    fragmentManager.beginTransaction().hide(activeFragment!!).show(cartFragment!!)
-                        .commit()
-                    activeFragment = cartFragment
-                    true
-                }
-
-                R.id.fav -> {
-                    fragmentManager.beginTransaction().hide(activeFragment!!)
-                        .show(favouriteFragment!!).commit()
-                    activeFragment = favouriteFragment
-                    true
-                }
-
-                R.id.profile -> {
-                    fragmentManager.beginTransaction().hide(activeFragment!!)
-                        .show(accountFragment!!).commit()
-                    activeFragment = accountFragment
-                    true
-                }
-
-                else -> false
-            }
-        }
-
-        //setting default fragment as Home
-        loadFragment(activeFragment!!)
-
-       /* requestPermissionLauncher = registerForActivityResult(
-            ActivityResultContracts.RequestPermission()
-        ) { isGranted: Boolean ->
-            if (isGranted) {
-                FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
-                    if (!task.isSuccessful) {
-                        return@OnCompleteListener
-                    }
-
-                    // fetching the token
-                    val token = task.result
-                    if (TextUtils.isEmpty(token)) {
-                        cleverTapDefaultInstance.pushFcmRegistrationId(token, true)
-                        val data: HashMap<String, Any> = hashMapOf(
-                            "MSG-push" to true
-                        )
-                        Log.d(TAG, "push permission update() called  $data")
-                        CTAnalyticsHelper.INSTANCE.pushProfile(data)
-                    }
-
-                })
-                CleverTapAPI.createNotificationChannel(
-                    applicationContext, "default_channel", "Default Channel",
-                    "Default Channel", NotificationManager.IMPORTANCE_MAX, true
-                )
-
-                Toast.makeText(this, "Notifications permission granted", Toast.LENGTH_SHORT)
-                    .show()
-            } else {
-//            Toast.makeText(
-//                this, "${getString(R.string.app_name)} can't post notifications without Notification permission",
-//                Toast.LENGTH_LONG
-//            ).show()
-
-                Snackbar.make(
-                    binding.main,
-                    String.format(
-                        String.format(
-                            "You Denied Push Permission before, Please click on Settings and allow the push permission",
-                            getString(R.string.app_name)
-                        )
-                    ),
-                    Snackbar.LENGTH_INDEFINITE
-                ).setAction("Settings") {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                        val settingsIntent: Intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
-                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                            .putExtra(Settings.EXTRA_APP_PACKAGE, packageName)
-                        startActivity(settingsIntent)
-                    }
-                }.show()
-            }
-        }
-
-        askNotificationPermission()*/
-
-        /*cleverTapDefaultInstance.registerPushPermissionNotificationResponseListener(this)
-
-        val builder = CTLocalInApp.builder()
-            .setInAppType(CTLocalInApp.InAppType.ALERT)
-            .setTitleText("Get Notified")
-            .setMessageText("Enable Notification permission")
-            .followDeviceOrientation(true)
-            .setPositiveBtnText("Allow")
-            .setNegativeBtnText("Cancel")
-            .build()
-        cleverTapDefaultInstance.promptPushPrimer(builder)*/
-
-//        apiInterface = RetrofitInstance.getInstance().create(ApiInterface::class.java)
-//        val prefEmail = UtilityHelper.INSTANCE.getPIISavedDataSharedPreference(applicationContext)
-//            ?.getString(Constants.email,"");
-//        val prefName = UtilityHelper.INSTANCE.getPIISavedDataSharedPreference(applicationContext)
-//            ?.getString(Constants.name,"");
-//        if (prefEmail != null && TextUtils.isEmpty(prefName)) {
-//            getProfileDataViaEmail(prefEmail)
-//        }
-
-//        showCustomNotification(applicationContext)
-
-        checkNotificationPermission()
     }
 
     private fun checkNotificationPermission() {
@@ -601,9 +610,11 @@ class MainActivity : AppCompatActivity()/*, PushPermissionResponseListener*/ {
                         val profileData = recordPojo.profileData
                         var dob = ""
                         var preferredCategory = ""
+                        var preferredTheme = ""
                         if (profileData != null) {
                             dob = profileData.dob!!
                             preferredCategory = profileData.preferredcategory!!
+                            preferredTheme = profileData.preferredtheme!!
                         }
                         if (!TextUtils.isEmpty(dob)) {
                             // Extract the value after the underscore
@@ -629,12 +640,12 @@ class MainActivity : AppCompatActivity()/*, PushPermissionResponseListener*/ {
                         )
                         if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(name)
                             && !TextUtils.isEmpty(phone)
-                            && !TextUtils.isEmpty(preferredCategory) && !TextUtils.isEmpty(dob)
+                            && !TextUtils.isEmpty(preferredCategory) && !TextUtils.isEmpty(preferredTheme) && !TextUtils.isEmpty(dob)
                         ) {
 
                             UtilityHelper.INSTANCE.savePIIDataSharedPreference(
                                 applicationContext,
-                                email!!, name, "+$phone", preferredCategory, dob
+                                email!!, name, "+$phone", preferredCategory, preferredTheme,dob
                             )
                         }
 

@@ -46,6 +46,7 @@ class ProfileActivity : AppCompatActivity() {
 
 //        val theMap = mapOf("Electronics" to 1, "Mobile Phones" to 2, "Fashion" to 3, "Home & Kitchen" to 4, "Health" to 5, "Gift Cards" to 6, "Groceries" to 7)
         var priorities = resources.getStringArray(R.array.categories)
+        var themes = resources.getStringArray(R.array.themes)
         val industry =
             UtilityHelper.INSTANCE.getIndustrySelectionSharedPreference(applicationContext)
                 ?.getString(Constants.INDUSTRY,Constants.ECOMMERCE)
@@ -58,11 +59,15 @@ class ProfileActivity : AppCompatActivity() {
         val arrayAdapter = ArrayAdapter(this, R.layout.dropdown_item, priorities)
         binding.categoryInputEditText.setAdapter(arrayAdapter)
 
+        val arrayAdapter1 = ArrayAdapter(this, R.layout.dropdown_item, themes)
+        binding.themeSelect.setAdapter(arrayAdapter1)
+
         val prefs = UtilityHelper.INSTANCE.getPIISavedDataSharedPreference(applicationContext)
         val name = prefs?.getString(Constants.name, "")
         val email = prefs?.getString(Constants.email, "")
         val phone = prefs?.getString(Constants.phone, "")
         val preference = prefs?.getString(Constants.categoryPreference, "")
+        val theme = prefs?.getString(Constants.themePreference, "")
         val dob = prefs?.getString(Constants.dob, "")
         if (!TextUtils.isEmpty(dob)){
             date = dateToDateObject(dob)
@@ -73,6 +78,7 @@ class ProfileActivity : AppCompatActivity() {
         binding.emailInputEditText.setText(email)
         binding.phoneInputEditText.setText(phone)
         binding.categoryInputEditText.setText(preference, false)
+        binding.themeSelect.setText(theme, false)
         binding.dobInputEditText.setText("Selected Date: $dob")
 
         CTAnalyticsHelper.INSTANCE.pushEvent("Edit Profile Page Viewed")
@@ -84,13 +90,15 @@ class ProfileActivity : AppCompatActivity() {
         val email = binding.emailInputEditText.text
         val phone = binding.phoneInputEditText.text
         val category = binding.categoryInputEditText.text
+        val theme = binding.themeSelect.text
 
         if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(email) &&
-            !TextUtils.isEmpty(phone) && !TextUtils.isEmpty(category)) {
+            !TextUtils.isEmpty(phone) && !TextUtils.isEmpty(category) && !TextUtils.isEmpty(theme)) {
             val data: HashMap<String, Any> = hashMapOf(
                 "Phone" to phone.toString(),
                 "Name" to name.toString(),
                 "Preferred Category" to category.toString(),
+                "Preferred Theme" to theme.toString(),
                 "DOB" to date,
             )
             Log.d(TAG, "profileUpdateButtonClicked() called  $data")
@@ -104,6 +112,7 @@ class ProfileActivity : AppCompatActivity() {
                 name.toString(),
                 phone.toString(),
                 category.toString(),
+                theme.toString(),
                 formattedDate
             )
             finish()

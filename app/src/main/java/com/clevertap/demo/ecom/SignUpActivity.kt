@@ -72,9 +72,10 @@ class SignUpActivity : AppCompatActivity() {
         val email = binding.emailInputEditText.text
         val phone = binding.phoneInputEditText.text
         val category = binding.categoryInputEditText.text
+        val theme = binding.themeSelect.text
 
         if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(phone) && !TextUtils.isEmpty(
-                category) && date.time != 0L && UtilityHelper.INSTANCE.isValidEmail(email.toString())
+                category) && !TextUtils.isEmpty(theme) && date.time != 0L && UtilityHelper.INSTANCE.isValidEmail(email.toString())
             && UtilityHelper.INSTANCE.isValidPhoneNumber(phone.toString())) {
             showHideProgressView(true)
 
@@ -83,6 +84,7 @@ class SignUpActivity : AppCompatActivity() {
                 "Phone" to phone.toString(),
                 "Name" to name.toString(),
                 "Preferred Category" to category.toString(),
+                "Preferred Theme" to theme.toString(),
                 "DOB" to date,
                 "MSG-sms" to true,
                 "MSG-email" to true,
@@ -93,7 +95,7 @@ class SignUpActivity : AppCompatActivity() {
             val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
             // Format the selected date into a string
             val formattedDate = dateFormat.format(date.time)
-            UtilityHelper.INSTANCE.savePIIDataSharedPreference(applicationContext,email.toString(),name.toString(),phone.toString(),category.toString(),formattedDate)
+            UtilityHelper.INSTANCE.savePIIDataSharedPreference(applicationContext,email.toString(),name.toString(),phone.toString(),category.toString(),theme.toString(),formattedDate)
 
             Timer().schedule(1500) {
                 runOnUiThread {
