@@ -15,6 +15,18 @@ import java.io.IOException
 
 class ItemListingFragment : Fragment() {
 
+    companion object {
+        private const val ARG_JSON_FILE_NAME = "json_file_name"
+
+        fun newInstance(jsonFileName: String): ItemListingFragment {
+            val fragment = ItemListingFragment()
+            val args = Bundle()
+            args.putString(ARG_JSON_FILE_NAME, jsonFileName)
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,13 +42,16 @@ class ItemListingFragment : Fragment() {
             parentFragmentManager.popBackStack()
         }
 
-        val jsonString = getJsonDataFromAsset("products.json")
-        val gson = Gson()
-        val listProductType = object : TypeToken<List<Product>>() {}.type
-        val products: List<Product> = gson.fromJson(jsonString, listProductType)
+        val jsonFileName = arguments?.getString(ARG_JSON_FILE_NAME)
+        if (jsonFileName != null) {
+            val jsonString = getJsonDataFromAsset(jsonFileName)
+            val gson = Gson()
+            val listProductType = object : TypeToken<List<Product>>() {}.type
+            val products: List<Product> = gson.fromJson(jsonString, listProductType)
 
-        val adapter = ItemListingAdapter(products)
-        recyclerView.adapter = adapter
+            val adapter = ItemListingAdapter(products)
+            recyclerView.adapter = adapter
+        }
 
         return view
     }
