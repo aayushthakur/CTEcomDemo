@@ -1,5 +1,9 @@
 package com.clevertap.demo.ecom.mainFragments
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Product(
     val id: String,
     val title: String,
@@ -8,4 +12,4 @@ data class Product(
     val discount: String,
     val color: String,
     val image_url: String
-)
+) : Parcelable

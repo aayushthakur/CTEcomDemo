@@ -13,7 +13,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.IOException
 
-class ItemListingFragment : Fragment() {
+class ItemListingFragment : Fragment(), ItemListingAdapter.OnItemClickListener {
 
     companion object {
         private const val ARG_JSON_FILE_NAME = "json_file_name"
@@ -50,6 +50,7 @@ class ItemListingFragment : Fragment() {
             val products: List<Product> = gson.fromJson(jsonString, listProductType)
 
             val adapter = ItemListingAdapter(products)
+            adapter.setOnItemClickListener(this)
             recyclerView.adapter = adapter
         }
 
@@ -71,5 +72,13 @@ class ItemListingFragment : Fragment() {
             return null
         }
         return jsonString
+    }
+
+    override fun onItemClick(product: Product) {
+        val fragment = ItemDetailsFragment.newInstance(product)
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.frameLayout, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 }

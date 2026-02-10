@@ -116,7 +116,7 @@ class HomeFragment : Fragment(), FragmentCommunicator, DisplayUnitListener, CTIn
                 }
                 if (fragment != null) {
                     parentFragmentManager.beginTransaction()
-                        .replace(this@HomeFragment.requireView().id, fragment)
+                        .replace(R.id.frameLayout, fragment)
                         .addToBackStack(null)
                         .commit()
                 } else {
@@ -223,6 +223,7 @@ class HomeFragment : Fragment(), FragmentCommunicator, DisplayUnitListener, CTIn
                 "top_categories",
                 "{\"top_categories\":[{\"name\":\"Electronics\",\"image_url\":\"https://lh3.googleusercontent.com/d/1r5lyfdRNgArYVTqLidZ18QcfEiLiJmW7\",\"redirect_url\":\"\",\"order\":1},{\"name\":\"Mobile Phones\",\"image_url\":\"https://lh3.googleusercontent.com/d/12AuvIQ4361wTwxbLUAhx-eOD8qmWImtB\",\"redirect_url\":\"\",\"order\":2},{\"name\":\"Fashion\",\"image_url\":\"https://lh3.googleusercontent.com/d/13YcO3qvkjM3o5I6nH2dStpIQkvw4GJnJ\",\"redirect_url\":\"\",\"order\":3},{\"name\":\"Home & Kitchen\",\"image_url\":\"https://lh3.googleusercontent.com/d/1Xmkz060pg1Z_CU_bp6-7CaRWmHXmnN6Y\",\"redirect_url\":\"\",\"order\":4},{\"name\":\"Health\",\"image_url\":\"https://lh3.googleusercontent.com/d/1_5eJPxNbV_AmfxsBP0hpTjcytgi8xLQf\",\"redirect_url\":\"\",\"order\":5},{\"name\":\"Gift Cards\",\"image_url\":\"https://lh3.googleusercontent.com/d/1AbL31Jfhm-6veBrEzvu_cUX5JqgTTWLk\",\"redirect_url\":\"\",\"order\":6},{\"name\":\"Groceries\",\"image_url\":\"https://lh3.googleusercontent.com/d/1QaeypE-4qfq_x_E23lAO4ppZmmu6JQA6\",\"redirect_url\":\"\",\"order\":7}]}"
             )
+            renderData()
 
             bottomBanner = cleverTapDefaultInstance.defineVariable(
                 "bottom_banner",
@@ -323,6 +324,7 @@ class HomeFragment : Fragment(), FragmentCommunicator, DisplayUnitListener, CTIn
                 "financial_categories",
                 "{\"top_categories\":[{\"name\":\"Loan\",\"image_url\":\"https://iili.io/33q6kdX.png\",\"redirect_url\":\"\",\"order\":1},{\"name\":\"Gas Booking\",\"image_url\":\"https://iili.io/33q6XXR.png\",\"redirect_url\":\"\",\"order\":2},{\"name\":\"D2H\",\"image_url\":\"https://iili.io/33q6hsp.png\",\"redirect_url\":\"\",\"order\":3},{\"name\":\"Bus\",\"image_url\":\"https://iili.io/33q6E5g.png\",\"redirect_url\":\"\",\"order\":4},{\"name\":\"BroadBand\",\"image_url\":\"https://iili.io/33q6Wzv.png\",\"redirect_url\":\"\",\"order\":5},{\"name\":\"Mobile Recharge\",\"image_url\":\"https://iili.io/33q6wqN.png\",\"redirect_url\":\"\",\"order\":6},{\"name\":\"Electricity\",\"image_url\":\"https://iili.io/33q6Ogt.png\",\"redirect_url\":\"\",\"order\":7}]}"
             )
+            renderFintechData()
 
             bottomFinanceBanner = cleverTapDefaultInstance.defineVariable(
                 "bottom_finance_banner",
@@ -405,7 +407,6 @@ class HomeFragment : Fragment(), FragmentCommunicator, DisplayUnitListener, CTIn
             })
         }
         cleverTapDefaultInstance.fetchVariables { isSuccess ->
-            // isSuccess is true when server request is successful, false otherwise
             if (isSuccess) {
 
                 if (industry.equals(Constants.ECOMMERCE)) {
@@ -514,12 +515,7 @@ class HomeFragment : Fragment(), FragmentCommunicator, DisplayUnitListener, CTIn
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String = "", param2: String = "") = HomeFragment().apply {
-            arguments = Bundle().apply {
-                putString(ARG_PARAM1, param1)
-                putString(ARG_PARAM2, param2)
-            }
-        }
+        fun newInstance() = HomeFragment()
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -532,7 +528,7 @@ class HomeFragment : Fragment(), FragmentCommunicator, DisplayUnitListener, CTIn
             if (customMap.containsKey("native_display_type") && customMap["native_display_type"] == "home_carousel_banner") {
 
             } else {
-                //backend
+
             }
         }
     }
