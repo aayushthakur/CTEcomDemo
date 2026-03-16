@@ -114,6 +114,9 @@ class HomeFragment : Fragment(), FragmentCommunicator, DisplayUnitListener, CTIn
                     "Mobile Phones" -> ItemListingFragment.newInstance("mobile_phones.json")
                     "Gift Cards" -> ItemListingFragment.newInstance("gift_cards.json")
                     "Home & Kitchen" -> ItemListingFragment.newInstance("home_kitchen.json")
+                    "Health" -> ItemListingFragment.newInstance("health.json")
+                    "Electronics" -> ItemListingFragment.newInstance("electronics.json")
+                    "Groceries" -> ItemListingFragment.newInstance("groceries.json")
                     else -> null
                 }
                 if (fragment != null) {

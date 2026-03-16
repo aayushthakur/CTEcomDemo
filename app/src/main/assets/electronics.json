@@ -1,0 +1,38 @@
+[
+  {
+    "id": "ELE-6001",
+    "title": "Apple MacBook Air M2",
+    "price": 89900,
+    "original_price": 99900,
+    "discount": "10% OFF",
+    "color": "Space Grey",
+    "image_url": "https://backend.paiinternational.in/media/images/7_uxtqNIv.jpg"
+  },
+  {
+    "id": "ELE-6002",
+    "title": "Sony WH-1000XM5 Wireless Headphones",
+    "price": 26990,
+    "original_price": 34990,
+    "discount": "23% OFF",
+    "color": "Black",
+    "image_url": "https://shopatsc.com/cdn/shop/products/2500x2500_Black_5.jpg?v=1694415813"
+  },
+  {
+    "id": "ELE-6003",
+    "title": "Samsung Galaxy Watch6",
+    "price": 19999,
+    "original_price": 29999,
+    "discount": "33% OFF",
+    "color": "Graphite",
+    "image_url": "https://sell.gameloot.in/wp-content/uploads/sites/4/2023/12/Samsung-Galaxy-Watch6-40mm-4G-Silver.jpg"
+  },
+  {
+    "id": "ELE-6004",
+    "title": "Canon EOS R100 Mirrorless Camera",
+    "price": 44990,
+    "original_price": 54990,
+    "discount": "18% OFF",
+    "color": "Black",
+    "image_url": "https://www.justcanon.in/cdn/shop/files/R100a.jpg?v=1718108847"
+  }
+]
