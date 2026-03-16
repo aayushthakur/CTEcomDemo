@@ -112,6 +112,7 @@ class HomeFragment : Fragment(), FragmentCommunicator, DisplayUnitListener, CTIn
                 val fragment = when (categoryName) {
                     "Fashion" -> ItemListingFragment.newInstance("products.json")
                     "Mobile Phones" -> ItemListingFragment.newInstance("mobile_phones.json")
+                    "Gift Cards" -> ItemListingFragment.newInstance("gift_cards.json")
                     else -> null
                 }
                 if (fragment != null) {

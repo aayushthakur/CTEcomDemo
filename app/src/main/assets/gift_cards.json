@@ -1,0 +1,38 @@
+[
+  {
+    "id": "GC-3001",
+    "title": "Amazon Pay Gift Card",
+    "price": 1000,
+    "original_price": 1000,
+    "discount": "0% OFF",
+    "color": "Blue",
+    "image_url": "https://assets.myhubble.money/brand-assets/logo-images-wp/amazon-pay-logo.webp"
+  },
+  {
+    "id": "GC-3002",
+    "title": "Flipkart Gift Card",
+    "price": 500,
+    "original_price": 500,
+    "discount": "0% OFF",
+    "color": "Yellow",
+    "image_url": "https://5.imimg.com/data5/ANDROID/Default/2024/9/453162988/ZI/ZY/DE/232160978/product-jpeg.jpg"
+  },
+  {
+    "id": "GC-3003",
+    "title": "Google Play Recharge Code",
+    "price": 1500,
+    "original_price": 1500,
+    "discount": "0% OFF",
+    "color": "Multi",
+    "image_url": "https://krgkart.com/wp-content/uploads/2025/01/google-play-gift-card-recharge-code-rs-1000.jpg"
+  },
+  {
+    "id": "GC-3004",
+    "title": "Myntra Gift Card",
+    "price": 2000,
+    "original_price": 2000,
+    "discount": "0% OFF",
+    "color": "Pink",
+    "image_url": "https://assets.myntassets.com/w_360,q_50,,dpr_2,fl_progressive,f_webp/assets/images/1522209/2016/9/15/11473950956475-1-Rupee-Gift-Card-4561473950956433-1.jpg"
+  }
+]
