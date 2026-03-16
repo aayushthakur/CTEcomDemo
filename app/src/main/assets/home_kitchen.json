@@ -1,0 +1,38 @@
+[
+  {
+    "id": "HK-4001",
+    "title": "Prestige Iris Plus 750 W Mixer Grinder",
+    "price": 3299,
+    "original_price": 6295,
+    "discount": "47% OFF",
+    "color": "Black",
+    "image_url": "https://m.media-amazon.com/images/I/51HfqyUaHyL._AC_UF894,1000_QL80_.jpg"
+  },
+  {
+    "id": "HK-4002",
+    "title": "Pigeon Amaze Plus 1.5 L Electric Kettle",
+    "price": 625,
+    "original_price": 1245,
+    "discount": "49% OFF",
+    "color": "Silver",
+    "image_url": "https://m.media-amazon.com/images/I/61cr1l1yvtL.jpg"
+  },
+  {
+    "id": "HK-4003",
+    "title": "Milton Thermosteel Flip Bin 1000 ml Bottle",
+    "price": 999,
+    "original_price": 1120,
+    "discount": "10% OFF",
+    "color": "Black",
+    "image_url": "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcSpVWisppP8a8Z08U_3QdSyzBwHvdMvoqbj9yZeZ0ANeG5HJzasjErfsQXjC9vAlaDLpmc42_tBf3txaq4-uFebBpERT44qgggGJt_pbWOhFTdMxobwbB2rzRxllS77avR_cNeqdYI&usqp=CAc"
+  },
+  {
+    "id": "HK-4004",
+    "title": "Philips Daily Collection Air Fryer",
+    "price": 7499,
+    "original_price": 9995,
+    "discount": "25% OFF",
+    "color": "Black",
+    "image_url": "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcQa_SFGketTFl3XlPEGNx7q8HoYv8eMo2yBLOlXf98QGB5W3g-ZjzMG-Io82SfHTULzXPlcTenWr6thwnmGGEMXJb1HeSAy1EXcI6ocxuWDaJ53cJS4bJwOz1e00Dq3UzC5ZIBZVgo&usqp=CAc"
+  }
+]
