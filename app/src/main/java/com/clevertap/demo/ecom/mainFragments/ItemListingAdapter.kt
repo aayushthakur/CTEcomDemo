@@ -14,6 +14,16 @@ import com.clevertap.demo.ecom.R
 class ItemListingAdapter(private val products: List<Product>) :
     RecyclerView.Adapter<ItemListingAdapter.ViewHolder>() {
 
+    private var listener: OnItemClickListener? = null
+
+    interface OnItemClickListener {
+        fun onItemClick(product: Product)
+    }
+
+    fun setOnItemClickListener(listener: OnItemClickListener) {
+        this.listener = listener
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_listing_row, parent, false)
@@ -28,6 +38,10 @@ class ItemListingAdapter(private val products: List<Product>) :
         holder.originalPrice.paintFlags = holder.originalPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
         holder.discount.text = product.discount
         Glide.with(holder.image.context).load(product.image_url).into(holder.image)
+
+        holder.itemView.setOnClickListener {
+            listener?.onItemClick(product)
+        }
     }
 
     override fun getItemCount() = products.size

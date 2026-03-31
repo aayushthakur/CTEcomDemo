@@ -1,0 +1,83 @@
+[
+  {
+    "id": "SKU-2001",
+    "title": "Galaxy S24 Ultra",
+    "price": 129999,
+    "original_price": 134999,
+    "discount": "3% OFF",
+    "color": "Titanium Gray",
+    "image_url": "https://rukminim2.flixcart.com/image/240/240/xif0q/mobile/o/d/1/-original-imahggetmzzanrty.jpeg?q=60"
+  },
+  {
+    "id": "SKU-2002",
+    "title": "iPhone 15 Pro Max",
+    "price": 159900,
+    "original_price": 159900,
+    "discount": "0% OFF",
+    "color": "Natural Titanium",
+    "image_url": "https://rukminim2.flixcart.com/image/240/240/xif0q/mobile/f/a/6/-original-imahfz2tnafhmagr.jpeg?q=60"
+  },
+  {
+    "id": "SKU-2003",
+    "title": "Google Pixel 8 Pro",
+    "price": 106999,
+    "original_price": 113999,
+    "discount": "6% OFF",
+    "color": "Obsidian",
+    "image_url": "https://rukminim2.flixcart.com/image/240/240/xif0q/mobile/z/u/l/-original-imahhqjwyzsjyfvn.jpeg?q=60"
+  },
+  {
+    "id": "SKU-2004",
+    "title": "OnePlus 12",
+    "price": 64999,
+    "original_price": 64999,
+    "discount": "0% OFF",
+    "color": "Flowy Emerald",
+    "image_url": "https://rukminim2.flixcart.com/image/240/240/xif0q/mobile/m/n/v/-original-imahavdveeghweea.jpeg?q=60"
+  },
+  {
+    "id": "SKU-2005",
+    "title": "Vivo X100 Pro",
+    "price": 89999,
+    "original_price": 94999,
+    "discount": "5% OFF",
+    "color": "Asteroid Black",
+    "image_url": "https://rukminim2.flixcart.com/image/240/240/xif0q/mobile/o/2/g/-original-imahbr2cz5apcwze.jpeg?q=60"
+  },
+  {
+    "id": "SKU-2006",
+    "title": "Samsung Galaxy F15 5G",
+    "price": 15999,
+    "original_price": 18999,
+    "discount": "15% OFF",
+    "color": "Ash Black",
+    "image_url": "https://rukminim2.flixcart.com/image/240/240/xif0q/mobile/o/j/d/-original-imahgy25zuwqzzye.jpeg?q=60"
+  },
+  {
+    "id": "SKU-2007",
+    "title": "Realme 12 Pro+ 5G",
+    "price": 31999,
+    "original_price": 34999,
+    "discount": "8% OFF",
+    "color": "Submarine Blue",
+    "image_url": "https://rukminim2.flixcart.com/image/240/240/xif0q/mobile/t/m/g/-original-imahcfwmrnwy9zgn.jpeg?q=60"
+  },
+  {
+    "id": "SKU-2008",
+    "title": "Motorola Edge 50 Pro 5G",
+    "price": 35999,
+    "original_price": 39999,
+    "discount": "10% OFF",
+    "color": "Luxe Lavender",
+    "image_url": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/2/s/8/-original-imahgy26fu3z2hez.jpeg?q=70"
+  },
+  {
+    "id": "SKU-2009",
+    "title": "Poco M6 Pro 5G",
+    "price": 12999,
+    "original_price": 16999,
+    "discount": "23% OFF",
+    "color": "Forest Green",
+    "image_url": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/o/j/d/-original-imahgy25zuwqzzye.jpeg?q=70"
+  }
+]

@@ -108,11 +108,25 @@ class HomeFragment : Fragment(), FragmentCommunicator, DisplayUnitListener, CTIn
         )
 
         categoriesAdapter.setOnItemClickListener(object : CategoriesAdapter.OnItemClickListener {
-            override fun onClick(imageView: ImageView?, url: String?, redirectUrl: String?) {
-                parentFragmentManager.beginTransaction()
-                    .replace(this@HomeFragment.requireView().id, ItemListingFragment())
-                    .addToBackStack(null)
-                    .commit()
+            override fun onClick(categoryName: String) {
+                val fragment = when (categoryName) {
+                    "Fashion" -> ItemListingFragment.newInstance("products.json")
+                    "Mobile Phones" -> ItemListingFragment.newInstance("mobile_phones.json")
+                    "Gift Cards" -> ItemListingFragment.newInstance("gift_cards.json")
+                    "Home & Kitchen" -> ItemListingFragment.newInstance("home_kitchen.json")
+                    "Health" -> ItemListingFragment.newInstance("health.json")
+                    "Electronics" -> ItemListingFragment.newInstance("electronics.json")
+                    "Groceries" -> ItemListingFragment.newInstance("groceries.json")
+                    else -> null
+                }
+                if (fragment != null) {
+                    parentFragmentManager.beginTransaction()
+                        .replace(R.id.frameLayout, fragment)
+                        .addToBackStack(null)
+                        .commit()
+                } else {
+                    Toast.makeText(requireContext(), "Coming soon for $categoryName", Toast.LENGTH_SHORT).show()
+                }
             }
         })
 
@@ -176,195 +190,6 @@ class HomeFragment : Fragment(), FragmentCommunicator, DisplayUnitListener, CTIn
                 }
             }
         }
-
-       /* if (industry.equals(Constants.ECOMMERCE)){
-            topCategories = cleverTapDefaultInstance.defineVariable(
-                "top_categories",
-                "{\"top_categories\":[{\"name\":\"Electronics\",\"image_url\":\"https://lh3.googleusercontent.com/d/1r5lyfdRNgArYVTqLidZ18QcfEiLiJmW7\",\"redirect_url\":\"\",\"order\":1},{\"name\":\"Mobile Phones\",\"image_url\":\"https://lh3.googleusercontent.com/d/12AuvIQ4361wTwxbLUAhx-eOD8qmWImtB\",\"redirect_url\":\"\",\"order\":2},{\"name\":\"Fashion\",\"image_url\":\"https://lh3.googleusercontent.com/d/13YcO3qvkjM3o5I6nH2dStpIQkvw4GJnJ\",\"redirect_url\":\"\",\"order\":3},{\"name\":\"Home & Kitchen\",\"image_url\":\"https://lh3.googleusercontent.com/d/1Xmkz060pg1Z_CU_bp6-7CaRWmHXmnN6Y\",\"redirect_url\":\"\",\"order\":4},{\"name\":\"Health\",\"image_url\":\"https://lh3.googleusercontent.com/d/1_5eJPxNbV_AmfxsBP0hpTjcytgi8xLQf\",\"redirect_url\":\"\",\"order\":5},{\"name\":\"Gift Cards\",\"image_url\":\"https://lh3.googleusercontent.com/d/1AbL31Jfhm-6veBrEzvu_cUX5JqgTTWLk\",\"redirect_url\":\"\",\"order\":6},{\"name\":\"Groceries\",\"image_url\":\"https://lh3.googleusercontent.com/d/1QaeypE-4qfq_x_E23lAO4ppZmmu6JQA6\",\"redirect_url\":\"\",\"order\":7}]}"
-            )
-
-            bottomBanner = cleverTapDefaultInstance.defineVariable(
-                "bottom_banner",
-                "valentines"
-            )
-
-            walletBalance = cleverTapDefaultInstance.defineVariable(
-                "wallet_balance",
-                0
-            )
-
-            walletBalance.addValueChangedCallback(object : VariableCallback<Int>() {
-                override fun onValueChanged(varInstance: Var<Int>) {
-                    varInstance.let { validInstance ->
-                        context?.let {
-                            Handler(it.mainLooper).post {
-                                walletBalance = validInstance
-                                // run code
-                                renderWalletBalance()
-                            }
-                        }
-                    }
-                }
-            })
-
-            topCategories.addValueChangedCallback(object : VariableCallback<String>() {
-                override fun onValueChanged(varInstance: Var<String>) {
-                    varInstance.let { validInstance ->
-                        context?.let {
-                            Handler(it.mainLooper).post {
-                                topCategories = validInstance
-                                // run code
-                                renderData()
-                            }
-                        }
-                    }
-                }
-            })
-
-            bottomBanner.addValueChangedCallback(object :VariableCallback<String>(){
-                override fun onValueChanged(varInstance: Var<String>) {
-                    varInstance.let { instance ->
-                        context?.let {
-                            Handler(it.mainLooper).post {
-                                bottomBanner = instance
-
-                                var imageUrl = "https://iili.io/2yFrQgs.jpg"
-                                if (bottomBanner.stringValue.equals("holi")) {
-                                    imageUrl = "https://iili.io/2yFLofS.jpg"
-                                }
-                                Log.d(
-                                    TAG,
-                                    "onValueChanged() called with $instance $bottomBanner $imageUrl"
-                                )
-                                // run code
-                                Picasso.get()
-                                    .load(imageUrl)
-                                    .into(binding.PEBanner)
-                            }
-                        }
-                    }
-                }
-
-
-            })
-        }else if (industry.equals(Constants.FINTECH)){
-            financialCategories = cleverTapDefaultInstance.defineVariable(
-                "financial_categories",
-                "{\"top_categories\":[{\"name\":\"Loan\",\"image_url\":\"https://iili.io/33q6kdX.png\",\"redirect_url\":\"\",\"order\":1},{\"name\":\"Gas Booking\",\"image_url\":\"https://iili.io/33q6XXR.png\",\"redirect_url\":\"\",\"order\":2},{\"name\":\"D2H\",\"image_url\":\"https://iili.io/33q6hsp.png\",\"redirect_url\":\"\",\"order\":3},{\"name\":\"Bus\",\"image_url\":\"https://iili.io/33q6E5g.png\",\"redirect_url\":\"\",\"order\":4},{\"name\":\"BroadBand\",\"image_url\":\"https://iili.io/33q6Wzv.png\",\"redirect_url\":\"\",\"order\":5},{\"name\":\"Mobile Recharge\",\"image_url\":\"https://iili.io/33q6wqN.png\",\"redirect_url\":\"\",\"order\":6},{\"name\":\"Electricity\",\"image_url\":\"https://iili.io/33q6Ogt.png\",\"redirect_url\":\"\",\"order\":7}]}"
-            )
-
-            bottomFinanceBanner = cleverTapDefaultInstance.defineVariable(
-                "bottom_finance_banner",
-                "https://iili.io/33kZyB9.jpg"
-            )
-
-            financialCarousel = cleverTapDefaultInstance.defineVariable(
-                "financial_carousel",
-                "{\"carousel_images\":[{\"image_name\":\"bill1\",\"image_url\":\"https://iili.io/3F37yCl.webp\",\"image_redirect_url\":\"test\",\"image_order\":1},{\"image_name\":\"bill2\",\"image_url\":\"https://iili.io/3F3YH4S.png\",\"image_redirect_url\":\"test\",\"image_order\":2},{\"image_name\":\"bill3\",\"image_url\":\"https://iili.io/3F3Y9G2.jpg\",\"image_redirect_url\":\"test\",\"image_order\":3}]}")
-
-            walletBalance = cleverTapDefaultInstance.defineVariable(
-                "wallet_balance",
-                0
-            )
-
-            walletBalance.addValueChangedCallback(object : VariableCallback<Int>() {
-                override fun onValueChanged(varInstance: Var<Int>) {
-                    varInstance.let { validInstance ->
-                        context?.let {
-                            Handler(it.mainLooper).post {
-                                walletBalance = validInstance
-                                // run code
-                                renderWalletBalance()
-                            }
-                        }
-                    }
-                }
-            })
-
-            financialCategories.addValueChangedCallback(object : VariableCallback<String>() {
-                override fun onValueChanged(varInstance: Var<String>) {
-                    varInstance.let { validInstance ->
-                        context?.let {
-                            Handler(it.mainLooper).post {
-                                financialCategories = validInstance
-                                // run code
-                                renderFintechData()
-                            }
-                        }
-                    }
-                }
-            })
-
-            financialCarousel.addValueChangedCallback(object : VariableCallback<String>() {
-                override fun onValueChanged(varInstance: Var<String>) {
-                    varInstance.let { validInstance ->
-                        context?.let {
-                            Handler(it.mainLooper).post {
-                                financialCarousel = validInstance
-                                // run code
-                                renderFinancialCarousel()
-                            }
-                        }
-                    }
-                }
-            })
-
-            bottomFinanceBanner.addValueChangedCallback(object :VariableCallback<String>(){
-                override fun onValueChanged(varInstance: Var<String>) {
-                    varInstance.let { instance ->
-                        context?.let {
-                            Handler(it.mainLooper).post {
-                                bottomFinanceBanner = instance
-
-                                var imageUrl = bottomFinanceBanner.stringValue
-                                Log.d(
-                                    TAG,
-                                    "onValueChanged() called with $instance $bottomFinanceBanner $imageUrl"
-                                )
-                                // run code
-                                Picasso.get()
-                                    .load(imageUrl)
-                                    .into(binding.PEBanner)
-                            }
-                        }
-                    }
-                }
-
-
-            })
-        }*/
-
-
-
-//        cleverTapDefaultInstance.getCleverTapID{id ->
-//            var ctid = id
-//    }
-
-        /*cleverTapDefaultInstance.fetchVariables { isSuccess ->
-            // isSuccess is true when server request is successful, false otherwise
-            if (isSuccess) {
-
-                if (industry.equals(Constants.ECOMMERCE)){
-                    topCategories =
-                        cleverTapDefaultInstance.getVariable("top_categories")
-
-                    bottomBanner =
-                        cleverTapDefaultInstance.getVariable("bottom_banner")
-                }else if (industry.equals(Constants.FINTECH)){
-
-                    financialCategories =
-                        cleverTapDefaultInstance.getVariable("financial_categories")
-
-                    bottomFinanceBanner =
-                        cleverTapDefaultInstance.getVariable("bottom_finance_banner")
-
-                    financialCarousel = cleverTapDefaultInstance.getVariable("financial_carousel")
-                }
-
-
-
-            }
-        }*/
         return binding.root
     }
 
@@ -386,7 +211,7 @@ class HomeFragment : Fragment(), FragmentCommunicator, DisplayUnitListener, CTIn
             )
         }
 
-        var sortedList = categoriesList.sortedWith(compareBy { it.order })
+        val sortedList = categoriesList.sortedWith(compareBy { it.order })
         categoriesAdapter.updateList(sortedList)
         categoriesAdapter.notifyDataSetChanged()
     }
@@ -403,6 +228,7 @@ class HomeFragment : Fragment(), FragmentCommunicator, DisplayUnitListener, CTIn
                 "top_categories",
                 "{\"top_categories\":[{\"name\":\"Electronics\",\"image_url\":\"https://lh3.googleusercontent.com/d/1r5lyfdRNgArYVTqLidZ18QcfEiLiJmW7\",\"redirect_url\":\"\",\"order\":1},{\"name\":\"Mobile Phones\",\"image_url\":\"https://lh3.googleusercontent.com/d/12AuvIQ4361wTwxbLUAhx-eOD8qmWImtB\",\"redirect_url\":\"\",\"order\":2},{\"name\":\"Fashion\",\"image_url\":\"https://lh3.googleusercontent.com/d/13YcO3qvkjM3o5I6nH2dStpIQkvw4GJnJ\",\"redirect_url\":\"\",\"order\":3},{\"name\":\"Home & Kitchen\",\"image_url\":\"https://lh3.googleusercontent.com/d/1Xmkz060pg1Z_CU_bp6-7CaRWmHXmnN6Y\",\"redirect_url\":\"\",\"order\":4},{\"name\":\"Health\",\"image_url\":\"https://lh3.googleusercontent.com/d/1_5eJPxNbV_AmfxsBP0hpTjcytgi8xLQf\",\"redirect_url\":\"\",\"order\":5},{\"name\":\"Gift Cards\",\"image_url\":\"https://lh3.googleusercontent.com/d/1AbL31Jfhm-6veBrEzvu_cUX5JqgTTWLk\",\"redirect_url\":\"\",\"order\":6},{\"name\":\"Groceries\",\"image_url\":\"https://lh3.googleusercontent.com/d/1QaeypE-4qfq_x_E23lAO4ppZmmu6JQA6\",\"redirect_url\":\"\",\"order\":7}]}"
             )
+            renderData()
 
             bottomBanner = cleverTapDefaultInstance.defineVariable(
                 "bottom_banner",
@@ -503,6 +329,7 @@ class HomeFragment : Fragment(), FragmentCommunicator, DisplayUnitListener, CTIn
                 "financial_categories",
                 "{\"top_categories\":[{\"name\":\"Loan\",\"image_url\":\"https://iili.io/33q6kdX.png\",\"redirect_url\":\"\",\"order\":1},{\"name\":\"Gas Booking\",\"image_url\":\"https://iili.io/33q6XXR.png\",\"redirect_url\":\"\",\"order\":2},{\"name\":\"D2H\",\"image_url\":\"https://iili.io/33q6hsp.png\",\"redirect_url\":\"\",\"order\":3},{\"name\":\"Bus\",\"image_url\":\"https://iili.io/33q6E5g.png\",\"redirect_url\":\"\",\"order\":4},{\"name\":\"BroadBand\",\"image_url\":\"https://iili.io/33q6Wzv.png\",\"redirect_url\":\"\",\"order\":5},{\"name\":\"Mobile Recharge\",\"image_url\":\"https://iili.io/33q6wqN.png\",\"redirect_url\":\"\",\"order\":6},{\"name\":\"Electricity\",\"image_url\":\"https://iili.io/33q6Ogt.png\",\"redirect_url\":\"\",\"order\":7}]}"
             )
+            renderFintechData()
 
             bottomFinanceBanner = cleverTapDefaultInstance.defineVariable(
                 "bottom_finance_banner",
@@ -585,7 +412,6 @@ class HomeFragment : Fragment(), FragmentCommunicator, DisplayUnitListener, CTIn
             })
         }
         cleverTapDefaultInstance.fetchVariables { isSuccess ->
-            // isSuccess is true when server request is successful, false otherwise
             if (isSuccess) {
 
                 if (industry.equals(Constants.ECOMMERCE)) {
@@ -632,7 +458,7 @@ class HomeFragment : Fragment(), FragmentCommunicator, DisplayUnitListener, CTIn
             )
         }
 
-        var sortedList = categoriesList.sortedWith(compareBy { it.order })
+        val sortedList = categoriesList.sortedWith(compareBy { it.order })
         categoriesAdapter.updateList(sortedList)
         categoriesAdapter.notifyDataSetChanged()
     }
@@ -694,12 +520,7 @@ class HomeFragment : Fragment(), FragmentCommunicator, DisplayUnitListener, CTIn
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String = "", param2: String = "") = HomeFragment().apply {
-            arguments = Bundle().apply {
-                putString(ARG_PARAM1, param1)
-                putString(ARG_PARAM2, param2)
-            }
-        }
+        fun newInstance() = HomeFragment()
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -709,52 +530,11 @@ class HomeFragment : Fragment(), FragmentCommunicator, DisplayUnitListener, CTIn
             //CustomKV
             val customMap = cleverTapDisplayUnit.customExtras ?: return
             Log.d(TAG, "loadData() called with: units = $customMap")
-            if (customMap.containsKey("native_display_type") && customMap["native_display_type"] == "home_carousel_banner") {/*for (Map.Entry<String,String> entry : customMap.entrySet()) {
-                    System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
-                }*//* val customImage1 : String = customMap["carousel_image_1"]!!
-                val customImage2 : String = customMap["carousel_image_2"]!!
-                val customImage3 : String = customMap["carousel_image_3"]!!
-                val list = arrayListOf<ImageModel>()
-                list.add(ImageModel(customImage1))
-                list.add(ImageModel(customImage2))
-                list.add(ImageModel(customImage3))
-
-                Log.d(TAG, ("onDisplayUnitsLoaded() called with: carousel models = [" + list.size + "]"))
-                carouselAdapter.updateList(list)
-                carouselAdapter.notifyDataSetChanged()*/
+            if (customMap.containsKey("native_display_type") && customMap["native_display_type"] == "home_carousel_banner") {
 
             } else {
-                //backend
+
             }
-            /* if (units != null) {
-                 for (cleverTapDisplayUnit in units) {
-                     //CustomKV
-                     val customMap = cleverTapDisplayUnit.customExtras ?: return
-                     Log.d(TAG, "onDisplayUnitsLoaded() called with: units = $customMap")
-                     if (customMap.containsKey(com.clevertap.demo.ecom.Constants.ND_TYPE) && customMap[com.clevertap.demo.ecom.Constants.ND_TYPE] == com.clevertap.demo.ecom.Constants.HOME_CAROUSEL_BANNER && customMap.containsKey(
-                             com.clevertap.demo.ecom.Constants.PAYLOAD
-                         ) && customMap[com.clevertap.demo.ecom.Constants.PAYLOAD] != null
-                     ) {
-                         val gson = Gson().fromJson(
-                             customMap[com.clevertap.demo.ecom.Constants.PAYLOAD].toString(), POJOCarouselImageModel::class.java
-                         )
-                         for (data in gson.carouselImage) {
-                             carouseImageList.add(
-                                 ImageModel(
-                                     data.imageUrl,
-                                     data.imageName,
-                                     data.imageRedirectUrl,
-                                     data.imageOrder
-                                 )
-                             )
-                         }
-                         carouselAdapter.updateList(carouseImageList)
-                         carouselAdapter.notifyDataSetChanged()
-                     } else {
-                         //backend
-                     }
-                 }
-             }*/
         }
     }
 
@@ -816,16 +596,6 @@ class HomeFragment : Fragment(), FragmentCommunicator, DisplayUnitListener, CTIn
 
                     })
 
-//                     binding.carouselBannerRecyclerView.setItemSelectListener(object : OnSelected {
-//                         override fun onItemSelected(position: Int) {
-//                             Toast.makeText(
-//                                 context,
-//                                 "You have clicked on Image No : ${carouseImageList[position].order}",
-//                                 Toast.LENGTH_SHORT
-//                             ).show()
-//                         }
-//                     })
-
                 } else {
                     //backend
                 }
@@ -836,24 +606,15 @@ class HomeFragment : Fragment(), FragmentCommunicator, DisplayUnitListener, CTIn
 
     override fun inboxDidInitialize() {
         binding.include.toolbarNotifications.setOnClickListener(View.OnClickListener {
-//            val inboxTabs =
-//                arrayListOf("Promotions", "Offers", "Others")//Anything after the first 2 will be ignored
             CTInboxStyleConfig().apply {
-                //tabs = inboxTabs //Do not use this if you don't want to use tabs
                 tabBackgroundColor = "#027CD5"
-                //selectedTabIndicatorColor = "#0000FF"
-                //selectedTabColor = "#000000"
-                //unselectedTabColor = "#FFFFFF"
                 backButtonColor = "#FFFFFF"
                 navBarTitleColor = "#FFFFFF"
                 navBarTitle = "App Inbox"
                 navBarColor = "#027CD5"
                 inboxBackgroundColor = "#FFFFFF"
-//                firstTabTitle = "First Tab"
                 cleverTapDefaultInstance?.showAppInbox(this) //Opens activity With Tabs
             }
-            //OR
-//            cleverTapDefaultInstance.showAppInbox()
         })
     }
 

@@ -3,7 +3,6 @@ package com.clevertap.demo.ecom.carousel
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.clevertap.demo.ecom.databinding.ImageLayoutBinding
 import com.clevertap.demo.ecom.productExperiences.ImageModel
@@ -17,8 +16,6 @@ class CategoriesAdapter(private var context: Context, private var mList: List<Im
 
     // create new views
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        // inflates the card_view_design view
-        // that is used to hold list item
         val binding = ImageLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
@@ -27,26 +24,9 @@ class CategoriesAdapter(private var context: Context, private var mList: List<Im
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val model = mList[position]
         holder.bind(model)
-        holder.binding.root.setOnClickListener { view ->
-            onItemClickListener!!.onClick(
-                holder.binding.imageView, mList[position].imageUrl, mList[position].redirectUrl
-            )
-        }/* with(holder) {
-            with(mList[position]) {
-                Glide
-                    .with(context)
-                    .load(this.imageUrl)
-                    .centerCrop()
-                    .into(binding.carouselImage);
-
-//                binding.carouselImage.tooltipText = this.imageUrl
-                binding.root.setOnClickListener { view ->
-                    onItemClickListener!!.onClick(
-                        binding.carouselImage, mList.get(position).imageUrl
-                    )
-                }
-            }
-        }*/
+        holder.binding.root.setOnClickListener { 
+            model.text?.let { it1 -> onItemClickListener?.onClick(it1) }
+        }
     }
 
     // return the number of the items in the list
@@ -70,7 +50,7 @@ class CategoriesAdapter(private var context: Context, private var mList: List<Im
 
 
     interface OnItemClickListener {
-        fun onClick(imageView: ImageView?, url: String?, redirectUrl: String?)
+        fun onClick(categoryName: String)
     }
 
     fun updateList(list: List<ImageModel>) {

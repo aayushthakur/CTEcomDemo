@@ -1,0 +1,38 @@
+[
+  {
+    "id": "GRO-7001",
+    "title": "Fortune Sunlite Refined Sunflower Oil",
+    "price": 145,
+    "original_price": 175,
+    "discount": "17% OFF",
+    "color": "Yellow",
+    "image_url": "https://cdn.grofers.com/da/cms-assets/cms/product/61c67eb1-3f1b-423c-bc55-6b7fba83a5c9.jpg"
+  },
+  {
+    "id": "GRO-7002",
+    "title": "Aashirvaad Shudh Chakki Atta",
+    "price": 420,
+    "original_price": 499,
+    "discount": "15% OFF",
+    "color": "Brown",
+    "image_url": "https://desikirana.com/wp-content/uploads/2025/04/Screenshot-2025-04-25-103834.png"
+  },
+  {
+    "id": "GRO-7003",
+    "title": "Tata Salt Vacuum Evaporated Iodised Salt",
+    "price": 28,
+    "original_price": 30,
+    "discount": "6% OFF",
+    "color": "White",
+    "image_url": "https://i0.wp.com/dmaxpro.in/wp-content/uploads/2023/08/tata-salt-1kg.png?fit=1000%2C1248&ssl=1"
+  },
+  {
+    "id": "GRO-7004",
+    "title": "Maggi 2-Minute Masala Instant Noodles",
+    "price": 168,
+    "original_price": 180,
+    "discount": "7% OFF",
+    "color": "Yellow",
+    "image_url": "https://www.kiranapoorti.com/image/cache/catalog/51OyngH9SeL-320x320h.jpg"
+  }
+]

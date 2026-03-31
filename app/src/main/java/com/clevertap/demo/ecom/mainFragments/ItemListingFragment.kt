@@ -13,7 +13,19 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.IOException
 
-class ItemListingFragment : Fragment() {
+class ItemListingFragment : Fragment(), ItemListingAdapter.OnItemClickListener {
+
+    companion object {
+        private const val ARG_JSON_FILE_NAME = "json_file_name"
+
+        fun newInstance(jsonFileName: String): ItemListingFragment {
+            val fragment = ItemListingFragment()
+            val args = Bundle()
+            args.putString(ARG_JSON_FILE_NAME, jsonFileName)
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,13 +42,17 @@ class ItemListingFragment : Fragment() {
             parentFragmentManager.popBackStack()
         }
 
-        val jsonString = getJsonDataFromAsset("products.json")
-        val gson = Gson()
-        val listProductType = object : TypeToken<List<Product>>() {}.type
-        val products: List<Product> = gson.fromJson(jsonString, listProductType)
+        val jsonFileName = arguments?.getString(ARG_JSON_FILE_NAME)
+        if (jsonFileName != null) {
+            val jsonString = getJsonDataFromAsset(jsonFileName)
+            val gson = Gson()
+            val listProductType = object : TypeToken<List<Product>>() {}.type
+            val products: List<Product> = gson.fromJson(jsonString, listProductType)
 
-        val adapter = ItemListingAdapter(products)
-        recyclerView.adapter = adapter
+            val adapter = ItemListingAdapter(products)
+            adapter.setOnItemClickListener(this)
+            recyclerView.adapter = adapter
+        }
 
         return view
     }
@@ -56,5 +72,13 @@ class ItemListingFragment : Fragment() {
             return null
         }
         return jsonString
+    }
+
+    override fun onItemClick(product: Product) {
+        val fragment = ItemDetailsFragment.newInstance(product)
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.frameLayout, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 }

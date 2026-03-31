@@ -1,0 +1,38 @@
+[
+  {
+    "id": "HEA-5001",
+    "title": "Optimum Nutrition (ON) Gold Standard 100% Whey Protein",
+    "price": 3499,
+    "original_price": 3899,
+    "discount": "10% OFF",
+    "color": "Double Rich Chocolate",
+    "image_url": "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcRBKncNdB4Q8l3tTLOEn9NDVjLU749a8YQVXyd9KwKjmExwandwRQvxJgZFHalpp9NkD0WFLmZCgzsc660o3BjvuqXir18GHcNunGZgr920e_PaC3zd9rDRq323Z_IQR6oz3Va97nOExTM&usqp=CAc"
+  },
+  {
+    "id": "HEA-5002",
+    "title": "Himalaya Ashvagandha - 60 Tablets",
+    "price": 165,
+    "original_price": 250,
+    "discount": "34% OFF",
+    "color": "White",
+    "image_url": "https://cdn01.pharmeasy.in/dam/products_otc/192968/himalaya-ashvagandha-immunity-booster-tablets-bottle-of-60-6.1-1749458508.jpg"
+  },
+  {
+    "id": "HEA-5003",
+    "title": "Dr. Morepen BG-03 Blood Glucose Glucometer",
+    "price": 599,
+    "original_price": 999,
+    "discount": "40% OFF",
+    "color": "Black",
+    "image_url": "https://www.healthklin.com/image/cache/catalog/PRODUCTIMAGES/dr-morepen-bg-03-glucometer-only-550x550.jpg"
+  },
+  {
+    "id": "HEA-5004",
+    "title": "Dettol Liquid Handwash Refill",
+    "price": 199,
+    "original_price": 250,
+    "discount": "20% OFF",
+    "color": "Green",
+    "image_url": "https://m.media-amazon.com/images/I/61BacHKoINL._AC_UF1000,1000_QL80_.jpg"
+  }
+]
