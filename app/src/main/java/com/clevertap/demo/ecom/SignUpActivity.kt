@@ -65,6 +65,10 @@ class SignUpActivity : AppCompatActivity() {
         val arrayAdapter = ArrayAdapter(this, R.layout.dropdown_item, priorities)
         binding.categoryInputEditText.setAdapter(arrayAdapter)
 
+
+        val themes = resources.getStringArray(R.array.themes)
+        val themesArrayAdapter = ArrayAdapter(this, R.layout.dropdown_item, themes)
+        binding.themeSelect.setAdapter(themesArrayAdapter)
     }
 
     private fun signUpButtonClicked() {

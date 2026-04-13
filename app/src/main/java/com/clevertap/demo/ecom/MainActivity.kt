@@ -675,6 +675,7 @@ class MainActivity : AppCompatActivity()/*, PushPermissionResponseListener*/ {
         mListener = fragmentCommunicator
     }
 
+
     /*override fun onPushPermissionResponse(p0: Boolean) {
         if (p0) {
 

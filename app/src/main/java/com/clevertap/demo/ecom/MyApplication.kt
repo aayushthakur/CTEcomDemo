@@ -6,6 +6,8 @@ import android.util.Log
 import com.clevertap.android.pushtemplates.PushTemplateNotificationHandler
 import com.clevertap.android.sdk.ActivityLifecycleCallback
 import com.clevertap.android.sdk.CleverTapAPI
+import com.clevertap.android.sdk.inapp.customtemplates.function
+import com.clevertap.android.sdk.inapp.customtemplates.template
 import com.clevertap.android.sdk.interfaces.NotificationHandler
 import com.clevertap.android.sdk.pushnotification.CTPushNotificationListener
 import com.google.android.gms.tasks.OnCompleteListener
@@ -28,6 +30,17 @@ class MyApplication : Application(), CTPushNotificationListener {
     override fun onCreate() {
         ActivityLifecycleCallback.register(this)
         super.onCreate()
+
+        //this needs to be called before CleverTapAPI.getDefaultInstance()
+        CleverTapAPI.registerCustomInAppTemplates {
+            setOf(
+                function(isVisual = false) {   // Check Visual vs Non-visual Functions in "Key Differences"
+                    name("function")
+                    presenter(MyFunctionPresenter())
+                    stringArgument("message", "Hello")
+                }
+            )
+        }
         //Clevertap Event Here
         FirebaseApp.initializeApp(this)
         INSTANCE = this
@@ -36,6 +49,9 @@ class MyApplication : Application(), CTPushNotificationListener {
         CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.VERBOSE)
         CleverTapAPI.setNotificationHandler(PushTemplateNotificationHandler() as NotificationHandler)
         clevertap.ctPushNotificationListener = this
+
+
+//        clevertap.syncRegisteredInAppTemplates()
     }
 
     override fun onNotificationClickedPayloadReceived(p0: HashMap<String, Any>?) {
